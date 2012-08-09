@@ -19,7 +19,7 @@ from spam import views
 urlpatterns = patterns('',
     # Example:
     (r'^$', views.index),
-
-    # Uncomment this for admin:
-#     (r'^admin/', include('django.contrib.admin.urls')),
+    (r'^view/(?P<key>.*)$', views.view),
+    (r'^seed/(?P<key>.*)$', views.seed),
+    (r'^supply$', views.supply),
 )

@@ -1,0 +1,23 @@
+<html>
+<head>
+<style type="text/css">
+    .NN { color:red; }
+    .NNS { color: yellow; }
+    .NNP { color:orange; }
+    .JJ { color:gray; }
+    .CC, .CD { color: green; }
+    .PRP, .PRP\$ { color: blue; }
+    .DT { color: magenta; }
+    .VB, .VBD, .VBP, .VBZ, .VBG { color: purple; }
+    .IN, .TO, .\., .\,, .\:, .RB { color: #eeeeee; }
+</style>
+</head>
+<body>
+<h1>Raw Email</h1>
+
+<div class="title"><b>Title:</b> {{ title }}</div>
+
+<div class="body">{{ body|safe }}</div>
+
+</body>
+</html>

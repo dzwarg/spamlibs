@@ -1,0 +1,16 @@
+<html>
+<head>
+</head>
+<body>
+<h1>Seeding</h1>
+
+<h2>{{ title }}</title>
+
+<ul>
+{% for lib in libs %}
+<li><input name="lib_{{ lib.key }}" placeholder="{{ lib.description }}"/></li>
+{% endfor %}
+</ul>
+
+</body>
+</html>
