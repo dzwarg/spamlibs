@@ -1,0 +1,38 @@
+<html>
+<head>
+<style type="text/css">
+    .NN { color:red; }
+    .NNS { color: yellow; }
+    .NNP { color:orange; }
+    .JJ { color:gray; }
+    .CC, .CD { color: green; }
+    .PRP, .PRP\$ { color: blue; }
+    .DT { color: magenta; }
+    .VB, .VBD, .VBP, .VBZ, .VBG { color: purple; }
+    .IN, .TO, .\., .\,, .\:, .RB { color: #eeeeee; }
+</style>
+</head>
+<body>
+<h1>Hello {{ place }}!</h1>
+
+<form method="post">
+<div>
+<h2>Input</h2>
+<textarea rows="10" cols="100" name="input">{{ input }}</textarea>
+</div>
+
+<div>
+<h2>Tagged text</h2>
+<div>{{ tagged|safe }}</div>
+</div>
+
+<div>
+<h2>Form</h2>
+<div>{{ form|safe }}</div>
+</div>
+
+<input type="submit" value="Spam me!" />
+</form>
+
+</body>
+</html>
