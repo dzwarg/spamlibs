@@ -19,8 +19,9 @@ import os
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 os.environ['NLTK_DATA'] = os.path.dirname(__file__) + '/nltk_data'
 
-# train nltk
-
 # django app
 from django.core.handlers.wsgi import WSGIHandler
 app = WSGIHandler()
+
+import logging
+logging.getLogger().setLevel(logging.DEBUG)

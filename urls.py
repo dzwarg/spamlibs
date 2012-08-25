@@ -22,4 +22,5 @@ urlpatterns = patterns('',
     (r'^view/(?P<key>.*)$', views.view),
     (r'^seed/(?P<key>.*)$', views.seed),
     (r'^supply$', views.supply),
+    (r'^_ah/mail/(?P<email>.*)$', views.incoming),
 )

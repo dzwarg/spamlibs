@@ -13,11 +13,15 @@
 </style>
 </head>
 <body>
-<h1>Raw Email</h1>
+<h1>{% if is_processed %}Spamlibs!{% else %}Raw Email{% endif %}</h1>
 
 <div class="title"><b>Title:</b> {{ title }}</div>
 
-<div class="body">{{ body|safe }}</div>
+<div class="body">{% if is_processed %}<pre>{% endif %}{{ body|safe }}{% if is_processed %}</pre>{% endif %}</div>
 
+[ <a href="/">Back to the list</a> ]
+{% if is_processed %}
+[ <a href="/view/{{ key }}">View original</a> ]
+{% endif %}
 </body>
 </html>

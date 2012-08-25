@@ -4,10 +4,12 @@ from nltk.tag import pos_tag
 from nltk.data import load
 from random import random
 import sys
-from models import Email, Lib
+from models import Email, Lib, EmailRequest
 from datetime import datetime
+import logging
+from google.appengine.api.mail import InboundEmailMessage
 
-# load the tagset and help
+# load the tagset and help for individual terms
 tagdict = load('help/tagsets/upenn_tagset.pickle')
 
 # the probability of replacement, per-tag
@@ -27,12 +29,18 @@ repl_prop = {
 }
 
 def colorize_output(tagdict, input, tags):
+    """
+    Colorize the output with HTML span elements.
+    """
     output = ''
     input_idx = 0
     tag_idx = 0
     while tag_idx < len(tags):
         next_idx = input_idx + len(tags[tag_idx][0])
-        output += '<span class="%s" title="%s">%s</span>' % (tags[tag_idx][1], tagdict[tags[tag_idx][1]][0], input[input_idx:next_idx],)
+        try:
+            output += '<span class="%s" title="%s">%s</span>' % (tags[tag_idx][1], tagdict[tags[tag_idx][1]][0], input[input_idx:next_idx],)
+        except KeyError as ke:
+            output += input[input_idx:next_idx]
         tag_idx += 1
         input_idx = next_idx
         
@@ -41,6 +49,7 @@ def colorize_output(tagdict, input, tags):
             input_idx += 1
     
     return output
+    
     
 def generate_fields(email, tagdict, input, tags):
     input_idx = 0
@@ -53,27 +62,17 @@ def generate_fields(email, tagdict, input, tags):
         input_idx = input_idx + len(tag[0])
         while input_idx < len(input) and (input[input_idx] == ' ' or input[input_idx] == '\r' or input[input_idx] == '\n'):
             input_idx += 1
+            
+            
+def process_new(email):
+    tokens = word_tokenize(email.body)
+    tags = pos_tag(tokens)
+    form = generate_fields(email, tagdict, email.body, tags)
     
 def index(request):
     spams = Email.all().fetch(10)
     return render_to_response('index.html', {'spams':spams})
 
-"""
-    if request.method == 'GET':
-        input = " " "My dear friend!
-I read your ad in our Love Contact Agencies. My name is Sveta, and My age 28 year, my height is 170 cm. I graduated from Academy and am working as an agent. I'm interested in: gymnastics, skating and home-making. I'm independent, don't smoke or drink. I liked your photo and I want to know everything about you, write me. Go to my acc http://www.richardrobin.webpin.com Best wishes." " "
-    else:
-        input = request.POST['input']
-        email = Email(title='Test', body=input)
-        email.put()
-    
-    return render_to_response('index.html', {
-        'place': 'world',
-        'input': input,
-        'tagged': pretty,
-        'form': form
-    })
-"""
     
 def view(request, key):
     email = Email.get(key)
@@ -83,6 +82,7 @@ def view(request, key):
     body = colorize_output(tagdict, email.body, tags)
     
     return render_to_response('output_raw.html', {'title':email.title, 'body':body})
+
 
 def supply(request):
     if request.method == 'GET':
@@ -95,14 +95,61 @@ def supply(request):
     email = Email(title=title, body=input, date=date)
     email.put()
 
-    tokens = word_tokenize(input)
-    tags = pos_tag(tokens)
-    form = generate_fields(email, tagdict, input, tags)
+    process_new(email)
     
     return redirect('/view/%s' % email.key())
     
+    
 def seed(request, key):
     email = Email.get(key)
-    libs = Lib.all().filter('email =', email).fetch(10)
     
-    return render_to_response('seed_fields.html', {'title':email.title, 'libs':libs})
+    if request.method == 'GET':
+        libs = Lib.all().filter('email =', email).order('position').fetch(10)
+        return render_to_response('seed_fields.html', {'title':email.title, 'key':key, 'libs':libs})
+        
+    ls = []
+    for l in request.POST.items():
+        ls.append( (l[0], l[1], Lib.get(l[0]),) )
+        
+    ls.sort(cmp=lambda x,y: cmp(x[2].position, y[2].position))
+        
+    newbody = ''
+    bodyidx = 0
+    for l in ls:
+        newbody += email.body[bodyidx:l[2].position]
+        bodyidx = l[2].position
+        
+        newbody += l[1]
+        bodyidx += len(l[2].original)
+    
+    newbody += email.body[bodyidx:]
+        
+    return render_to_response('output_raw.html', {'key':key, 'title':email.title, 'body':newbody, 'is_processed':True})
+    
+def incoming(request, email):
+    logging.debug('Incoming email received.')
+    
+    msg = InboundEmailMessage(request.raw_post_data)
+    
+    content = ''
+    for content_type, body in msg.bodies('text/plain'):
+        headers = True
+        date = False
+        for line in str(body).split('\n'):
+            if not date:
+                parts = line.split(' ')
+                line = ' '.join(parts[len(parts)-5:])
+                date = datetime.strptime(line, '%a %b %d %H:%M:%S %Y')
+                logging.debug(str(date))
+                
+            if headers and line == '':
+                headers = False
+            elif not headers:
+                content += '%s\n' % line
+    
+    email = Email(title=msg.subject, body=content, date=date)
+    email.put()
+
+    process_new(email)
+    
+    return render_to_response('msg_receipt.email')

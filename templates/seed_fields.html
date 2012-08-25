@@ -4,13 +4,18 @@
 <body>
 <h1>Seeding</h1>
 
-<h2>{{ title }}</title>
+<h2>{{ title }}</h2>
 
+<form action="/seed/{{ key }}" method="POST">
 <ul>
 {% for lib in libs %}
-<li><input name="lib_{{ lib.key }}" placeholder="{{ lib.description }}"/></li>
+<li><input name="{{ lib.key }}" placeholder="{{ lib.description }}"/></li>
 {% endfor %}
 </ul>
+<input type="submit"/> <input type="reset"/>
+</form>
+
+[ <a href="/">Back to the list</a> ]
 
 </body>
 </html>
