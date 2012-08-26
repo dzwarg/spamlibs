@@ -1,13 +1,28 @@
+"""
+=====
+Views
+=====
+
+Views are methods that accept HttpRequest objects, and return HttpResponse objects.
+
+For more information about django views, see the django documentation:
+`<https://docs.djangoproject.com/en/dev/topics/http/views/>`_
+
+Each of the views here is mapped to one URL.
+"""
+
 from django.shortcuts import render_to_response, redirect
+from django.http import Http404
 from nltk.tokenize import word_tokenize
 from nltk.tag import pos_tag
 from nltk.data import load
 from random import random
 import sys
-from models import Email, Lib, EmailRequest
+from models import Email, Lib
 from datetime import datetime
 import logging
 from google.appengine.api.mail import InboundEmailMessage
+from google.appengine.ext.db import BadKeyError
 
 # load the tagset and help for individual terms
 tagdict = load('help/tagsets/upenn_tagset.pickle')
@@ -29,9 +44,6 @@ repl_prop = {
 }
 
 def colorize_output(tagdict, input, tags):
-    """
-    Colorize the output with HTML span elements.
-    """
     output = ''
     input_idx = 0
     tag_idx = 0
@@ -69,13 +81,32 @@ def process_new(email):
     tags = pos_tag(tokens)
     form = generate_fields(email, tagdict, email.body, tags)
     
+    
 def index(request):
+    """
+    Generate the front page of spamlibs. This shows the 10 most recent spam
+    email messages, and allows users to seed and view them.
+    
+    :param HttpRequest request: A web request.
+    :rtype: An HttpResponse object.
+    """
     spams = Email.all().fetch(10)
     return render_to_response('index.html', {'spams':spams})
 
     
 def view(request, key):
-    email = Email.get(key)
+    """
+    View an original spam email message. The email message is specified by *key*.
+    If the specified email cannot be found, this raises a 404 error.
+    
+    :param HttpRequest request: A web request.
+    :param string key: The identifier for a specific email.
+    :rtype: An HttpResponse object.
+    """
+    try:
+        email = Email.get(key)
+    except BadKeyError, ex:
+        raise Http404
     
     tokens = word_tokenize(email.body)
     tags = pos_tag(tokens)
@@ -85,6 +116,15 @@ def view(request, key):
 
 
 def supply(request):
+    """
+    If the HTTP Verb is GET: Provide a form for adding a new spam email message.
+    
+    If the HTTP Verb is POST: Save and process a new email message, and view
+    the resulting message.
+    
+    :param HttpRequest request: A web request.
+    :rtype: An HttpResponse object.
+    """
     if request.method == 'GET':
         return render_to_response('input_form.html', {})
         
@@ -101,8 +141,20 @@ def supply(request):
     
     
 def seed(request, key):
-    email = Email.get(key)
+    """
+    Provide a form to seed, or populate, the libs for a specific spam email.
+    The email message is specified by *key*. If the specified email cannot be 
+    found, this raises a 404 error.    
     
+    :param HttpRequest request: A web request.
+    :param string key: The identifier for a specific email.
+    :rtype: An HttpResponse object.
+    """
+    try:
+        email = Email.get(key)
+    except BadKeyError:
+        raise Http404
+        
     if request.method == 'GET':
         libs = Lib.all().filter('email =', email).order('position').fetch(10)
         return render_to_response('seed_fields.html', {'title':email.title, 'key':key, 'libs':libs})
@@ -127,7 +179,15 @@ def seed(request, key):
     return render_to_response('output_raw.html', {'key':key, 'title':email.title, 'body':newbody, 'is_processed':True})
     
 def incoming(request, email):
-    logging.debug('Incoming email received.')
+    """
+    Accept a new email message directly via the AppEngine email facility. The
+    entire email message is contained in the POST body of *email*.
+    
+    :param HttpRequest request: A web request.
+    :param string email: An email address.
+    :rtype: An HttpResponse object.
+    """
+    logging.info('Incoming email received.')
     
     msg = InboundEmailMessage(request.raw_post_data)
     
@@ -146,10 +206,13 @@ def incoming(request, email):
                 headers = False
             elif not headers:
                 content += '%s\n' % line
-    
-    email = Email(title=msg.subject, body=content, date=date)
-    email.put()
+                
+    if content == '':
+        logging.warn('Received an email, but no text/plain bodies.')
+    else:
+        email = Email(title=msg.subject, body=content, date=date)
+        email.put()
 
-    process_new(email)
+        process_new(email)
     
     return render_to_response('msg_receipt.email')

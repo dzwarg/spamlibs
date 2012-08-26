@@ -1,26 +1,35 @@
-# Copyright 2008 Google Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+"""
+====
+URLs
+====
 
+File: urls.py
+
+URL mappings for the endpoints available for Spamlibs. There are only five 
+endpoints:
+
+* ``/``: The front page.
+* ``/view/<key>``: View the original spam message.
+* ``/seed/<key>``: Seed and view a seeded spam message.
+* ``/supply``: Input a new spam email into the application.
+* ``/_ah/mail/<email>``: An AppEngine URL to receive spam email directly.
+"""
 from django.conf.urls.defaults import *
-
 from spam import views
 
 urlpatterns = patterns('',
-    # Example:
+    # The main page/index view
     (r'^$', views.index),
+    
+    # View a specific spam
     (r'^view/(?P<key>.*)$', views.view),
+    
+    # Generate forms for all the fields in a spam
     (r'^seed/(?P<key>.*)$', views.seed),
+    
+    # Input an email from an HTML form
     (r'^supply$', views.supply),
+    
+    # Input an email from an email submission
     (r'^_ah/mail/(?P<email>.*)$', views.incoming),
 )
