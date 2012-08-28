@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 
 {% block menu %}
-    <ul class="nav">
-        <li><a href="/">List</a></li>
+    {% if is_processed %}<ul class="nav">
         <li><a href="/view/{{ key }}">Original</a></li>
-    </ul>
+    </ul>{% endif %}
 {% endblock %}
 
 {% block content %}

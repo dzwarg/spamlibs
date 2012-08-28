@@ -43,7 +43,14 @@ repl_prop = {
     'CD': 1.0
 }
 
-def colorize_output(tagdict, input, tags):
+def _colorize_output(input, tags):
+    """
+    Generate a colorized output of the input, based on the tag types.
+    
+    :param string input: The input string
+    :param list tags: The tags of the input string
+    :rtype: An HTML string of colorized output.
+    """
     output = ''
     input_idx = 0
     tag_idx = 0
@@ -52,6 +59,7 @@ def colorize_output(tagdict, input, tags):
         try:
             tagtype = tags[tag_idx][1]
             tagdesc = tagdict[tagtype][0]
+            tagdesc = tagdesc.replace('"','&quot;')
             text = input[input_idx:next_idx]
             output += '<span data-html="false" data-content="%s" data-placement="bottom" data-trigger="hover">%s</span>' % (tagdesc, text,)
         except KeyError as ke:
@@ -60,13 +68,24 @@ def colorize_output(tagdict, input, tags):
         input_idx = next_idx
         
         while input_idx < len(input) and (input[input_idx] == ' ' or input[input_idx] == '\r' or input[input_idx] == '\n'):
-            output += input[input_idx]
+            if input[input_idx] == '\n':
+                output += '<br/>'
+            elif input[input_idx] == ' ':
+                output += ' '
+
             input_idx += 1
     
     return output
     
     
-def generate_fields(email, tagdict, input, tags):
+def _generate_fields(email, input, tags):
+    """
+    Generate the terms to swap out, randomly.
+    
+    :param models.Email email: The input email message.
+    :param string input: The input string.
+    :param list tags: The tags of the input string.
+    """
     input_idx = 0
     for tag in tags:
         if tag[1] in repl_prop and random() < repl_prop[tag[1]]:
@@ -79,10 +98,16 @@ def generate_fields(email, tagdict, input, tags):
             input_idx += 1
             
             
-def process_new(email):
+def _process_new(email):
+    """
+    Process a new email, by tokenizing the incoming email message and generating
+    the fields/terms to lib.
+    
+    :param models.Email email: The input email message.
+    """
     tokens = word_tokenize(email.body)
     tags = pos_tag(tokens)
-    form = generate_fields(email, tagdict, email.body, tags)
+    _generate_fields(email, email.body, tags)
     
     
 def index(request):
@@ -113,7 +138,7 @@ def view(request, key):
     
     tokens = word_tokenize(email.body)
     tags = pos_tag(tokens)
-    body = colorize_output(tagdict, email.body, tags)
+    body = _colorize_output(email.body, tags)
     
     return render_to_response('output_raw.html', {'title':email.title, 'body':body})
 
@@ -138,7 +163,7 @@ def supply(request):
     email = Email(title=title, body=input, date=date)
     email.put()
 
-    process_new(email)
+    _process_new(email)
     
     return redirect('/view/%s' % email.key())
     
@@ -159,7 +184,7 @@ def seed(request, key):
         raise Http404
         
     if request.method == 'GET':
-        libs = Lib.all().filter('email =', email).order('position').fetch(10)
+        libs = Lib.all().filter('email =', email).order('position')
         return render_to_response('seed_fields.html', {'title':email.title, 'key':key, 'libs':libs})
         
     ls = []
@@ -216,6 +241,6 @@ def incoming(request, email):
         email = Email(title=msg.subject, body=content, date=date)
         email.put()
 
-        process_new(email)
+        _process_new(email)
     
     return render_to_response('msg_receipt.email')
