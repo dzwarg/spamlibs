@@ -12,13 +12,16 @@ var
 sdist
 develop-eggs
 .installed.cfg
-
 # Installer logs
 pip-log.txt
-
 # Unit test / coverage reports
 .coverage
 .tox
-
 #Translations
 *.mo
+/env/
+/numpy/
+/_build/
+/_static/
+/_templates/
+*.DS_Store
