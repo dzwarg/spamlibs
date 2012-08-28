@@ -1,18 +1,24 @@
-<html>
-<head>
-<style type="text/css">
-</style>
-</head>
-<body>
-<h1>Spamlibs</h1>
+{% extends "base.html" %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="hero-unit">
+                    <h1>Spamlibs</h1>
+                    <p>Spamlibs is a mashup of spam email and the mad-libs word game.<p>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <h2>Recent Spams</h2>
 
-<h2>Recent Spams</h2>
-
-<ul>
-{% for spam in spams %}
-<li><a href="seed/{{ spam.key }}">{{ spam.title }}</a></li>
-{% endfor %}
-</ul>
-
-</body>
-</html>
+                <ul>
+                    {% for spam in spams %}
+                    <li><a href="seed/{{ spam.key }}">{{ spam.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

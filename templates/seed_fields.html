@@ -1,21 +1,29 @@
-<html>
-<head>
-</head>
-<body>
-<h1>Seeding</h1>
+{% extends "base.html" %}
 
-<h2>{{ title }}</h2>
+{% block menu %}
+    <ul class="nav">
+        <li><a href="/">List</a></li>
+    </ul>
+{% endblock %}
 
-<form action="/seed/{{ key }}" method="POST">
-<ul>
-{% for lib in libs %}
-<li><input name="{{ lib.key }}" placeholder="{{ lib.description }}"/></li>
-{% endfor %}
-</ul>
-<input type="submit"/> <input type="reset"/>
-</form>
+{% block content %}
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <h2>{{ title }}</h2>
 
-[ <a href="/">Back to the list</a> ]
-
-</body>
-</html>
+                <form action="/seed/{{ key }}" method="POST">
+                    <ul class="seed-list">
+                        {% for lib in libs %}
+                        <li>
+                            <input type="text" name="{{ lib.key }}" class="input-large" />
+                            <span class="help-block">{{ lib.description }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <input class="btn" type="submit"/> <input class="btn" type="reset"/>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,26 +1,35 @@
-<html>
-<head>
-<style type="text/css">
-</style>
-</head>
-<body>
-<h1>Add Email to be Spam-libbed</h1>
+{% extends "base.html" %}
 
-<form method="post">
-<div>
-<h2>Title</h2>
-<input type="text" name="title" width="10" />
-</div>
+{% block menu %}
+    <ul class="nav">
+        <li><a href="/">List</a></li>
+    </ul>
+{% endblock %}
 
-<div>
-<h2>Body</h2>
-<textarea rows="10" cols="100" name="input">{{ input }}</textarea>
-</div>
+{% block content %}
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <h2>Add Original Spam</h2>
 
-<input type="submit" value="Spam It!" />
-</form>
+                <form method="post" class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label" for="title">Title</label>
+                        <div class="controls">
+                            <input type="text" id="title" name="title" class="input-xxlarge" />
+                        </div>
+                    </div>
 
-[ <a href="/">Back to the list</a> ]
+                    <div class="control-group">
+                        <label class="control-label" for="input">Body</label>
+                        <div class="controls">
+                            <textarea class="input-xxlarge" rows="10" name="input">{{ input }}</textarea>
+                        </div>
+                    </div>
 
-</body>
-</html>
+                    <input type="submit" class="btn" value="Spam It!" />
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

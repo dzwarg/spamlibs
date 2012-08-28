@@ -1,27 +1,22 @@
-<html>
-<head>
-<style type="text/css">
-    .NN { color:red; }
-    .NNS { color: yellow; }
-    .NNP { color:orange; }
-    .JJ { color:gray; }
-    .CC, .CD { color: green; }
-    .PRP, .PRP\$ { color: blue; }
-    .DT { color: magenta; }
-    .VB, .VBD, .VBP, .VBZ, .VBG { color: purple; }
-    .IN, .TO, .\., .\,, .\:, .RB { color: #eeeeee; }
-</style>
-</head>
-<body>
-<h1>{% if is_processed %}Spamlibs!{% else %}Raw Email{% endif %}</h1>
+{% extends "base.html" %}
 
-<div class="title"><b>Title:</b> {{ title }}</div>
+{% block menu %}
+    <ul class="nav">
+        <li><a href="/">List</a></li>
+        <li><a href="/view/{{ key }}">Original</a></li>
+    </ul>
+{% endblock %}
 
-<div class="body">{% if is_processed %}<pre>{% endif %}{{ body|safe }}{% if is_processed %}</pre>{% endif %}</div>
+{% block content %}
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <h2>{{ title }}</h2>
 
-[ <a href="/">Back to the list</a> ]
-{% if is_processed %}
-[ <a href="/view/{{ key }}">View original</a> ]
-{% endif %}
-</body>
-</html>
+                <div class="body">
+                    {% if is_processed %}<pre>{% endif %}{{ body|safe }}{% if is_processed %}</pre>{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

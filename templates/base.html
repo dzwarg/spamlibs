@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Spamlibs - Spam meets madlibs</title>
+    <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style type="text/css">
+body { padding-top: 60px; padding-bottom: 40px; }
+.seed-list li { list-style-type: none; padding-bottom: 1em; }
+.NN { color:red; }
+.NNS { color: yellow; }
+.NNP { color:orange; }
+.JJ { color:gray; }
+.CC, .CD { color: green; }
+.PRP, .PRP\$ { color: blue; }
+.DT { color: magenta; }
+.VB, .VBD, .VBP, .VBZ, .VBG { color: purple; }
+.IN, .TO, .\., .\,, .\:, .RB { color: #eeeeee; }
+    </style>
+</head>
+
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="brand" href="/">Spamlibs</a>
+                {% block menu %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+{% block content %}{% endblock %}
+</body>
+</html>
