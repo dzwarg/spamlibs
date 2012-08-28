@@ -50,7 +50,10 @@ def colorize_output(tagdict, input, tags):
     while tag_idx < len(tags):
         next_idx = input_idx + len(tags[tag_idx][0])
         try:
-            output += '<span class="%s" title="%s">%s</span>' % (tags[tag_idx][1], tagdict[tags[tag_idx][1]][0], input[input_idx:next_idx],)
+            tagtype = tags[tag_idx][1]
+            tagdesc = tagdict[tagtype][0]
+            text = input[input_idx:next_idx]
+            output += '<span data-html="false" data-content="%s" data-placement="bottom" data-trigger="hover">%s</span>' % (tagdesc, text,)
         except KeyError as ke:
             output += input[input_idx:next_idx]
         tag_idx += 1
