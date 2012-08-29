@@ -12,7 +12,7 @@ Each of the views here is mapped to one URL.
 """
 
 from django.shortcuts import render_to_response, redirect
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from nltk.tokenize import word_tokenize
 from nltk.tag import pos_tag
 from nltk.data import load
@@ -117,11 +117,20 @@ def index(request):
     
     qry = Email.all().order('-date')
     recent_spams = qry.fetch(limit)
-    recent_count = qry.count(limit=limit+1)
+    
+    count = qry.count(limit=limit+1)
+    
+    qry = Email.all().order('-views')
+    viewed_spams = qry.fetch(limit)
+    
+    qry = Email.all().order('-rating')
+    popular_spams = qry.fetch(limit)
     
     return render_to_response('index.html', {
         'recent_spams':recent_spams,
-        'recent_more':recent_count==limit+1
+        'viewed_spams':viewed_spams,
+        'popular_spams':popular_spams,
+        'more':count==limit+1
     })
 
 
@@ -211,7 +220,12 @@ def view(request, key):
     tags = pos_tag(tokens)
     body = _colorize_output(email.body, tags)
     
-    return render_to_response('output_raw.html', {'title':email.title, 'body':body})
+    return render_to_response('output_raw.html', {
+        'title':email.title, 
+        'body':body,
+        'views':email.views,
+        'rating':email.rating
+    })
 
 
 def supply(request):
@@ -238,6 +252,24 @@ def supply(request):
     
     return redirect('/view/%s' % email.key())
     
+
+def rate(request, key):
+    """
+    Rate a spam-libbed spam email.
+    
+    :param HttpRequest request: A web request.
+    :param string key: The identifier for a specific email.
+    :rtype: An HttpResponse object
+    """
+    try:
+        email = Email.get(key)
+    except BadKeyError:
+        raise Http404
+    
+    email.rating += 1;
+    email.put()
+    
+    return HttpResponse('OK')
     
 def seed(request, key):
     """
@@ -259,7 +291,11 @@ def seed(request, key):
         
     if request.method == 'GET':
         libs = Lib.all().filter('email =', email).order('position')
-        return render_to_response('seed_fields.html', {'title':email.title, 'key':key, 'libs':libs})
+        return render_to_response('seed_fields.html', {
+            'title':email.title, 
+            'key':key,
+            'libs':libs
+        })
         
     ls = []
     for l in request.POST.items():
@@ -278,7 +314,13 @@ def seed(request, key):
     
     newbody += email.body[bodyidx:]
         
-    return render_to_response('output_raw.html', {'key':key, 'title':email.title, 'body':newbody, 'is_processed':True})
+    return render_to_response('output_raw.html', {
+        'key':key, 
+        'title':email.title,
+        'body':newbody,
+        'is_processed':True,
+        'views':email.views
+    })
     
 def incoming(request, email):
     """

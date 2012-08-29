@@ -33,6 +33,9 @@ urlpatterns = patterns('',
     # Input an email from an HTML form
     (r'^supply$', views.supply),
     
+    # Rate a spamlibbed email
+    (r'^rate/(?P<key>.*)$', views.rate),
+    
     # Input an email from an email submission
     (r'^_ah/mail/(?P<email>.*)$', views.incoming),
 )

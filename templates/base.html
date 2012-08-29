@@ -40,6 +40,29 @@ body { padding-top: 60px; padding-bottom: 40px; }
     <script type="text/javascript">
 $(document).ready(function() {
     $('.body span').popover();
+    
+    $('#do-rating').click(function(){
+        var form = $('#rating-form'),
+            opts = {
+                url: form.attr('action'),
+                method: form.attr('method'),
+                data: { rating:form.find('input[name="rating"]').val() }
+            },
+            req = $.ajax(opts);
+            
+        req.done(function(data, jqxhr, txtstatus) {
+            form.replaceWith('<div class="span6 alert alert-success">' +
+                'Thanks for rating this spam! :)</div>');
+        });
+        
+        req.fail(function(){
+            form.replaceWith('<div class="span6 alert"><button type="button" ' +
+                'class="close" data-dismiss="alert">×</button><strong>' +
+                'Warning!</strong> Could not rate spam. :(</div>');
+        });
+        
+        return false;
+    });
 });
     </script>
 </body>

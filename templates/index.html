@@ -10,23 +10,60 @@
             </div>
         </div>
         <div class="row-fluid">
-            <div class="span12">
+            <div class="span4">
                 <h2>Recent Spams</h2>
 
                 <ol>
                     {% for spam in recent_spams %}
-                    <li><a href="seed/{{ spam.key }}">{{ spam.title }}</a></li>
+                    <li><a href="/seed/{{ spam.key }}">{{ spam.title }}</a></li>
                     {% endfor %}
                 </ol>
+                        
+                {% if more %}
+                <div class="row-fluid">
+                    <div class="span2">
+                        <a class="btn" href="/list/1?order=-date">More...</a>
+                    </div>
+                </div>
+                {% endif %}
             </div>
-        </div>
+            
+            <div class="span4">
+                <h2>Most Viewed Spams</h2>
+
+                <ol>
+                    {% for spam in viewed_spams %}
+                    <li><a href="/seed/{{ spam.key }}">{{ spam.title }}</a></li>
+                    {% endfor %}
+                </ol>
         
-        {% if recent_more %}
-        <div class="row-fluid">
-            <div class="span2">
-                <a class="btn" href="/list/1">More...</a>
+                {% if more %}
+                <div class="row-fluid">
+                    <div class="span2">
+                        <a class="btn" href="/list/1?order=-views">More...</a>
+                    </div>
+                </div>
+                {% endif %}
             </div>
+            
+            <div class="span4">
+                <h2>Most Popular Spams</h2>
+
+                <ol>
+                    {% for spam in popular_spams %}
+                    <li><a href="/seed/{{ spam.key }}">{{ spam.title }}</a></li>
+                    {% endfor %}
+                </ol>
+        
+                {% if more %}
+                <div class="row-fluid">
+                    <div class="span2">
+                        <a class="btn" href="/list/1?order=-rating">More...</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
         </div>
-        {% endif %}
     </div>
 {% endblock %}
