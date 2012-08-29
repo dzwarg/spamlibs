@@ -72,22 +72,22 @@ path = []
 
 # User-specified locations:
 path += [d for d in os.environ.get('NLTK_DATA', '').split(os.pathsep) if d]
-if os.path.expanduser('~/') != '~/': path += [
-    os.path.expanduser('~/nltk_data')]
+#if os.path.expanduser('~/') != '~/': path += [
+#    os.path.expanduser('~/nltk_data')]
 
 # Common locations on Windows:
-if sys.platform.startswith('win'): path += [
-    r'C:\nltk_data', r'D:\nltk_data', r'E:\nltk_data',
-    os.path.join(sys.prefix, 'nltk_data'),
-    os.path.join(sys.prefix, 'lib', 'nltk_data'),
-    os.path.join(os.environ.get('APPDATA', 'C:\\'), 'nltk_data')]
+#if sys.platform.startswith('win'): path += [
+#    r'C:\nltk_data', r'D:\nltk_data', r'E:\nltk_data',
+#    os.path.join(sys.prefix, 'nltk_data'),
+#    os.path.join(sys.prefix, 'lib', 'nltk_data'),
+#    os.path.join(os.environ.get('APPDATA', 'C:\\'), 'nltk_data')]
 
 # Common locations on UNIX & OS X:
-else: path += [
-    '/usr/share/nltk_data',
-    '/usr/local/share/nltk_data',
-    '/usr/lib/nltk_data',
-    '/usr/local/lib/nltk_data']
+#else: path += [
+#    '/usr/share/nltk_data',
+#    '/usr/local/share/nltk_data',
+#    '/usr/lib/nltk_data',
+#    '/usr/local/lib/nltk_data']
 
 ######################################################################
 # Path Pointers
