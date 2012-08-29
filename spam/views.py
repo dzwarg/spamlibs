@@ -350,13 +350,17 @@ def incoming(request, email):
                 headers = False
             elif not headers:
                 content += '%s\n' % line
-                
+    
     if content == '':
         logging.warn('Received an email, but no text/plain bodies.')
     else:
+        logging.info('Compiled plain-text email: body length=%d' % len(content))
+        
         email = Email(title=msg.subject, body=content, date=date, views=0, rating=0)
         email.put()
 
+        logging.info('Processing new data for tokens & tags')
+        
         _process_new(email)
     
-    return render_to_response('msg_receipt.email')
+    return render_to_response('msg_receipt.email', mimetype='text/plain')
