@@ -333,34 +333,39 @@ def incoming(request, email):
     """
     logging.info('Incoming email received.')
     
-    msg = InboundEmailMessage(request.raw_post_data)
-    
-    content = ''
-    for content_type, body in msg.bodies('text/plain'):
-        headers = True
-        date = False
-        for line in str(body).split('\n'):
-            if not date:
-                parts = line.split(' ')
-                line = ' '.join(parts[len(parts)-5:])
-                date = datetime.strptime(line, '%a %b %d %H:%M:%S %Y')
-                logging.debug(str(date))
-                
-            if headers and line == '':
-                headers = False
-            elif not headers:
-                content += '%s\n' % line
-    
-    if content == '':
-        logging.warn('Received an email, but no text/plain bodies.')
-    else:
-        logging.info('Compiled plain-text email: body length=%d' % len(content))
+    try:
+        msg = InboundEmailMessage(request.raw_post_data)
         
-        email = Email(title=msg.subject, body=content, date=date, views=0, rating=0)
-        email.put()
-
-        logging.info('Processing new data for tokens & tags')
+        content = ''
+        for content_type, body in msg.bodies('text/plain'):
+            headers = True
+            date = False
+            for line in str(body).split('\n'):
+                if not date:
+                    parts = line.split(' ')
+                    line = ' '.join(parts[len(parts)-5:])
+                    date = datetime.strptime(line, '%a %b %d %H:%M:%S %Y')
+                    logging.debug(str(date))
+                    
+                if headers and line == '':
+                    headers = False
+                elif not headers:
+                    content += '%s\n' % line
         
-        _process_new(email)
+        if content == '':
+            logging.warn('Received an email, but no text/plain bodies.')
+        else:
+            logging.info('Compiled plain-text email: body length=%d' % len(content))
+            
+            newtitle = msg.subject.replace('\n','').replace('\r','')
+            email = Email(title=newtitle, body=content, date=date, views=0, rating=0)
+            email.put()
+            
+            logging.info('Processing new data for tokens & tags')
+            
+            _process_new(email)
+            
+    except Exception, ex:
+        logging.error('Error processing new email. %s' % ex)
     
     return render_to_response('msg_receipt.email', mimetype='text/plain')
