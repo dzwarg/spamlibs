@@ -17,10 +17,9 @@ from nltk.tokenize import word_tokenize
 from nltk.tag import pos_tag
 from nltk.data import load
 from random import random
-import sys
 from models import Email, Lib
 from datetime import datetime
-import logging
+import logging, math, sys
 from google.appengine.api.mail import InboundEmailMessage
 from google.appengine.ext.db import BadKeyError
 
@@ -68,11 +67,7 @@ def _colorize_output(input, tags):
         input_idx = next_idx
         
         while input_idx < len(input) and (input[input_idx] == ' ' or input[input_idx] == '\r' or input[input_idx] == '\n'):
-            if input[input_idx] == '\n':
-                output += '<br/>'
-            elif input[input_idx] == ' ':
-                output += ' '
-
+            output += input[input_idx]
             input_idx += 1
     
     return output
@@ -118,9 +113,82 @@ def index(request):
     :param HttpRequest request: A web request.
     :rtype: An HttpResponse object.
     """
-    spams = Email.all().fetch(10)
-    return render_to_response('index.html', {'spams':spams})
+    limit = 10
+    
+    qry = Email.all().order('-date')
+    recent_spams = qry.fetch(limit)
+    recent_count = qry.count(limit=limit+1)
+    
+    return render_to_response('index.html', {
+        'recent_spams':recent_spams,
+        'recent_more':recent_count==limit+1
+    })
 
+
+def _pager(current, total, per_page):
+    """
+    Generate a set of pager context variables for templates to
+    render a nice pagination control.
+    
+    :param integer current: The current page.
+    :param integer total: The total number of items.
+    :param integer per_page: The number of items per page.
+    :rtype: dict
+    """
+    maxpgs = 5
+       
+    lwrbound = 1
+    if current > maxpgs:
+        lwrbound = current - maxpgs
+        
+    uprbound = math.ceil(float(total) / per_page)
+    if (total-(current * per_page))/per_page >= maxpgs:
+        uprbound = current + maxpgs
+        
+    pager = {
+        'pages':[],
+        'less': lwrbound > 1,
+        'more': total > uprbound * per_page 
+    }
+
+    for x in range(lwrbound, int(uprbound)+1):
+        pager['pages'].append(x)
+    
+    return pager
+    
+def list(request, page):
+    """
+    List all the spams in the system, using a paging output.
+    
+    :param HttpRequest request: A web request.
+    :param integer page: The page to view.
+    :rtype: An HttpResponse object.
+    """
+    pagesize = 10
+    maxfwd = pagesize * 5 + 1
+    
+    order = 'date'
+    if 'order' in request.GET:
+        tmpo = request.GET['order']
+        if tmpo[0] == '-':
+            tmpo = tmpo[1:]
+        if tmpo in Email.properties():
+            order = request.GET['order']
+    
+    page = int(page)
+        
+    qry = Email.all().order(order)
+    nspams = qry.count(offset=(page-1)*pagesize, limit=maxfwd)
+    spams = qry.fetch(pagesize, offset=(page-1)*pagesize)
+    
+    return render_to_response('list.html', {
+        'spams':spams,
+        'count':maxfwd,
+        'pager':_pager(page, (page-1)*pagesize + nspams, 10),
+        'order':order,
+        'page':page
+    })
+    
     
 def view(request, key):
     """
@@ -135,6 +203,9 @@ def view(request, key):
         email = Email.get(key)
     except BadKeyError, ex:
         raise Http404
+    
+    email.views += 1
+    email.put()
     
     tokens = word_tokenize(email.body)
     tags = pos_tag(tokens)
@@ -160,7 +231,7 @@ def supply(request):
     input = request.POST['input']
     date = datetime.now()
     
-    email = Email(title=title, body=input, date=date)
+    email = Email(title=title, body=input, date=date, views=0, rating=0)
     email.put()
 
     _process_new(email)
@@ -182,6 +253,9 @@ def seed(request, key):
         email = Email.get(key)
     except BadKeyError:
         raise Http404
+        
+    email.views += 1
+    email.put()
         
     if request.method == 'GET':
         libs = Lib.all().filter('email =', email).order('position')
@@ -238,7 +312,7 @@ def incoming(request, email):
     if content == '':
         logging.warn('Received an email, but no text/plain bodies.')
     else:
-        email = Email(title=msg.subject, body=content, date=date)
+        email = Email(title=msg.subject, body=content, date=date, views=0, rating=0)
         email.put()
 
         _process_new(email)

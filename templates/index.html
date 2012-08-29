@@ -13,12 +13,20 @@
             <div class="span12">
                 <h2>Recent Spams</h2>
 
-                <ul>
-                    {% for spam in spams %}
+                <ol>
+                    {% for spam in recent_spams %}
                     <li><a href="seed/{{ spam.key }}">{{ spam.title }}</a></li>
                     {% endfor %}
-                </ul>
+                </ol>
             </div>
         </div>
+        
+        {% if recent_more %}
+        <div class="row-fluid">
+            <div class="span2">
+                <a class="btn" href="/list/1">More...</a>
+            </div>
+        </div>
+        {% endif %}
     </div>
 {% endblock %}

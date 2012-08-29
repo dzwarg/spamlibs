@@ -21,6 +21,9 @@ urlpatterns = patterns('',
     # The main page/index view
     (r'^$', views.index),
     
+    # A list of all spams
+    (r'^list/(?P<page>\d*)$', views.list),
+    
     # View a specific spam
     (r'^view/(?P<key>.*)$', views.view),
     

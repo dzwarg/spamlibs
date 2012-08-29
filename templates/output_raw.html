@@ -13,7 +13,7 @@
                 <h2>{{ title }}</h2>
 
                 <div class="body">
-                    {% if is_processed %}<pre>{% endif %}{{ body|safe }}{% if is_processed %}</pre>{% endif %}
+                    {% if is_processed %}<pre>{% endif %}{{ body|safe|linebreaks }}{% if is_processed %}</pre>{% endif %}
                 </div>
             </div>
         </div>

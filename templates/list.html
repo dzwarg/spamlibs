@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <h2>All Libbable Spams</h2>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th><a href="/list/1?order={% if order != "-title" %}-{% endif %}title">Title</a></th>
+                            <th><a href="/list/1?order={% if order != "-date" %}-{% endif %}date">Date</a></th>
+                            <th><a href="/list/1?order={% if order != "-rating" %}-{% endif %}rating">Rating</a></th>
+                            <th><a href="/list/1?order={% if order != "-views" %}-{% endif %}views">Views</a></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for spam in spams %}
+                        <tr>
+                            <td><a href="/seed/{{ spam.key }}">{{ spam.title }}</a></td>
+                            <td>{{ spam.date }}</td>
+                            <td>{{ spam.rating }}</td>
+                            <td>{{ spam.views }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% if count > 10 %}
+        <div class="row-fluid">
+            <div class="pagination pagination-centered">
+                <ul>
+                {% for page in pager.pages %}
+                {% if forloop.first and pager.less %}
+                    <li><a href="/list/{{ page|add:"-1" }}">&laquo;</a></li>
+                {% endif %}
+                    <li><a href="/list/{{ page }}">{{ page }}</a></li>
+                {% if forloop.last and pager.more %}
+                    <li><a href="/list/{{ page|add:"1" }}">&raquo;</a></li>
+                {% endif %}
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

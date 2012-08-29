@@ -27,6 +27,12 @@ class Email(db.Model):
     #: The date that this email was sent.
     date = db.DateTimeProperty()
     
+    #: How well does this spam rate?
+    rating = db.IntegerProperty()
+    
+    #: How many times has this spam been viewed?
+    views = db.IntegerProperty()
+    
 class Lib(db.Model):
     """
     A lib represents a specific term in an email, the description of its part of 
