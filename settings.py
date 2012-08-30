@@ -48,6 +48,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'spam.context_processors.user',
+)
+
 #: The root filesystem path, absolute.
 ROOT_PATH = os.path.dirname(__file__)
 

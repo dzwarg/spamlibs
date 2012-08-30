@@ -12,16 +12,18 @@ Each of the views here is mapped to one URL.
 """
 
 from django.shortcuts import render_to_response, redirect
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseForbidden
+from django.template import RequestContext
 from nltk.tokenize import word_tokenize
 from nltk.tag import pos_tag
 from nltk.data import load
 from random import random
-from models import Email, Lib
+from models import Email, Lib, UserSetting
 from datetime import datetime
 import logging, math, sys
 from google.appengine.api.mail import InboundEmailMessage
 from google.appengine.ext.db import BadKeyError
+from google.appengine.api import users
 
 # load the tagset and help for individual terms
 tagdict = load('help/tagsets/upenn_tagset.pickle')
@@ -126,12 +128,14 @@ def index(request):
     qry = Email.all().order('-rating')
     popular_spams = qry.fetch(limit)
     
-    return render_to_response('index.html', {
+    ctx = RequestContext(request, {
         'recent_spams':recent_spams,
         'viewed_spams':viewed_spams,
         'popular_spams':popular_spams,
         'more':count==limit+1
-    })
+    })    
+    
+    return render_to_response('index.html', context_instance=ctx)
 
 
 def _pager(current, total, per_page):
@@ -190,13 +194,15 @@ def list(request, page):
     nspams = qry.count(offset=(page-1)*pagesize, limit=maxfwd)
     spams = qry.fetch(pagesize, offset=(page-1)*pagesize)
     
-    return render_to_response('list.html', {
+    ctx = RequestContext(request, {
         'spams':spams,
         'count':maxfwd,
         'pager':_pager(page, (page-1)*pagesize + nspams, 10),
         'order':order,
         'page':page
     })
+    
+    return render_to_response('list.html', context_instance=ctx)
     
     
 def view(request, key):
@@ -220,12 +226,14 @@ def view(request, key):
     tags = pos_tag(tokens)
     body = _colorize_output(email.body, tags)
     
-    return render_to_response('output_raw.html', {
+    ctx = RequestContext(request, {
         'title':email.title, 
         'body':body,
         'views':email.views,
         'rating':email.rating
     })
+    
+    return render_to_response('output_raw.html', context_instance=ctx)
 
 
 def supply(request):
@@ -238,8 +246,18 @@ def supply(request):
     :param HttpRequest request: A web request.
     :rtype: An HttpResponse object.
     """
+    user = users.get_current_user()
+    
+    if user is None:
+        return redirect(users.create_login_url('/supply'))
+        
+    usetting = UserSetting.gql('WHERE userid = :1', user.user_id())
+    if usetting.count() != 1 or not usetting.get().is_contrib:
+        return HttpResponseForbidden('<h1>Authorization Required</h1>')
+        
     if request.method == 'GET':
-        return render_to_response('input_form.html', {})
+        ctx = RequestContext(request, {})
+        return render_to_response('input_form.html', context_instance=ctx)
         
     title = request.POST['title']
     input = request.POST['input']
@@ -291,11 +309,13 @@ def seed(request, key):
         
     if request.method == 'GET':
         libs = Lib.all().filter('email =', email).order('position')
-        return render_to_response('seed_fields.html', {
+        ctx = RequestContext(request, {
             'title':email.title, 
             'key':key,
             'libs':libs
         })
+        
+        return render_to_response('seed_fields.html', context_instance=ctx)
         
     ls = []
     for l in request.POST.items():
@@ -314,13 +334,14 @@ def seed(request, key):
     
     newbody += email.body[bodyidx:]
         
-    return render_to_response('output_raw.html', {
+    ctx = RequestContext(request, {
         'key':key, 
         'title':email.title,
         'body':newbody,
         'is_processed':True,
         'views':email.views
     })
+    return render_to_response('output_raw.html', context_instance=ctx)
     
 def incoming(request, email):
     """

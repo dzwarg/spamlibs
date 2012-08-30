@@ -6,7 +6,9 @@
     <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style type="text/css">
-body { padding-top: 60px; padding-bottom: 40px; }
+@media (min-width:980px) {
+    body { padding-top: 60px; padding-bottom: 40px; }
+}
 .seed-list li { list-style-type: none; padding-bottom: 1em; }
 .body { margin: 0 75px; }
 /*
@@ -28,7 +30,13 @@ body { padding-top: 60px; padding-bottom: 40px; }
         <div class="navbar-inner">
             <div class="container-fluid">
                 <a class="brand" href="/">Spamlibs</a>
+                <ul class="nav">
+                    <li><a href="/supply">Add New Spam</a></li>
+                </ul>
                 {% block menu %}{% endblock %}
+                <ul class="nav pull-right">
+                    <li><a href="{{ userurl }}">{% if user %}Logout {{ user.nickname }}{% else %}Login{% endif %}</a></li>
+                </ul>
             </div>
         </div>
     </div>

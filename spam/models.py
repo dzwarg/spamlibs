@@ -50,3 +50,14 @@ class Lib(db.Model):
     
     #: The description of the language term, as defined by NLTK.
     description = db.StringProperty()
+
+class UserSetting(db.Model):
+    """
+    Settings for individual users. Currently only tests if users can contribute.
+    """
+    
+    #: The userid of the user
+    userid = db.StringProperty()
+    
+    #: Can the user contribute to the spam content?
+    is_contrib = db.BooleanProperty()
