@@ -59,5 +59,8 @@ class UserSetting(db.Model):
     #: The userid of the user
     userid = db.StringProperty()
     
+    #: The email address of the user
+    email = db.EmailProperty()
+    
     #: Can the user contribute to the spam content?
     is_contrib = db.BooleanProperty()

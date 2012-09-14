@@ -357,6 +357,17 @@ def incoming(request, email):
     try:
         msg = InboundEmailMessage(request.raw_post_data)
         
+        usetting = UserSetting.gql('WHERE email = :1', msg.sender)
+        if usetting.count() == 0:
+            logging.warn('Received email from an unrecognized sender: ' + msg.sender)
+            
+            return render_to_response('msg_receipt.email', mimetype='text/plain')
+            
+        if not usetting.get().is_contrib:
+            logging.warn('Received email from an unauthorized contributor: ' + msg.sender)
+            
+            return render_to_response('msg_receipt.email', mimetype='text/plain')
+            
         content = ''
         for content_type, body in msg.bodies('text/plain'):
             headers = True
