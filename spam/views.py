@@ -242,7 +242,7 @@ def supply(request):
         return render_to_response('input_form.html', {})
         
     title = request.POST['title']
-    input = request.POST['input']
+    input = request.POST['input'].lstrip('\t\n\r ')
     date = datetime.now()
     
     email = Email(title=title, body=input, date=date, views=0, rating=0)
@@ -358,6 +358,7 @@ def incoming(request, email):
             logging.info('Compiled plain-text email: body length=%d' % len(content))
             
             newtitle = msg.subject.replace('\n','').replace('\r','')
+            content = content.lstrip('\t\n\r ')
             email = Email(title=newtitle, body=content, date=date, views=0, rating=0)
             email.put()
             
