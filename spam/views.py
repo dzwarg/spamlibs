@@ -343,13 +343,12 @@ def seed(request, key):
     })
     return render_to_response('output_raw.html', context_instance=ctx)
     
-def incoming(request, email):
+def incoming(request):
     """
     Accept a new email message directly via the AppEngine email facility. The
     entire email message is contained in the POST body of *email*.
     
     :param HttpRequest request: A web request.
-    :param string email: An email address.
     :rtype: An HttpResponse object.
     """
     logging.info('Incoming email received.')

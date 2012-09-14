@@ -35,7 +35,7 @@ documentation on the settings module can be found in the django documentation.
 import os
 
 #: Set the application to run in debug mode and print verbose error messages.
-DEBUG=True
+DEBUG=False
 
 #: Set the application to run templates in debug mode, and print verbose error messages.
 TEMPLATE_DEBUG=DEBUG

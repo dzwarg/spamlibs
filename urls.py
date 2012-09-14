@@ -37,5 +37,5 @@ urlpatterns = patterns('',
     (r'^rate/(?P<key>.*)$', views.rate),
     
     # Input an email from an email submission
-    (r'^_ah/mail/(?P<email>.*)$', views.incoming),
+    (r'^_ah/mail/garbage@spamlibs.appspotmail.com$', views.incoming),
 )
