@@ -5,28 +5,28 @@
 
 {% block content %}
     <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="span12">
+        <div class="row">
+            <div class="col-12">
                 <h2>Add Original Spam</h2>
 
-                <form method="post" class="form-horizontal">
-                    <div class="control-group">
-                        <label class="control-label" for="title">Title</label>
-                        <div class="controls">
-                            <input type="text" id="title" name="title" class="input-xxlarge" />
+		<form method="post">
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="title">Title</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="title" name="title" class="form-control-lg" />
                         </div>
                     </div>
 
-                    <div class="control-group">
-                        <label class="control-label" for="input">Body</label>
-                        <div class="controls">
-                            <textarea class="input-xxlarge" rows="10" name="input">{{ input }}</textarea>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="input">Body</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control-lg" rows="10" name="input">{{ input }}</textarea>
                         </div>
                     </div>
 
-                    <div class="control-group">
-                        <div class="controls">
-                            <input type="submit" class="btn span1" value="Spam It!" />
+                    <div class="row mb-3">
+                        <div class="col col-1">
+                            <input type="submit" class="btn btn-primary" value="Spam It!" />
                         </div>
                     </div>
                 </form>

@@ -252,8 +252,8 @@ def supply(request):
         return redirect(users.create_login_url('/supply'))
         
     usetting = UserSetting.gql('WHERE userid = :1', user.user_id())
-    if usetting.count() != 1 or not usetting.get().is_contrib:
-        return HttpResponseForbidden('<h1>Authorization Required</h1>')
+    #if usetting.count() != 1 or not usetting.get().is_contrib:
+    #    return HttpResponseForbidden('<h1>Authorization Required</h1>')
         
     if request.method == 'GET':
         ctx = RequestContext(request, {})

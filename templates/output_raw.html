@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
 {% block menu %}
-    {% if is_processed %}<ul class="nav">
+    {% if is_processed %}<ul class="navbar-nav">
         <li><a href="/view/{{ key }}">Original</a></li>
     </ul>{% endif %}
 {% endblock %}
 
 {% block content %}
     <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="span12">
+        <div class="row">
+            <div class="col-12">
                 <h2>{{ title }}</h2>
 
                 <div class="body">
@@ -18,33 +18,38 @@
             </div>
         </div>
         
-        <div class="row-fluid">
+        <div class="row">
             {% if is_processed %}
-            <form id="rating-form" class="span6" action="/rate/{{ key }}" method="post">
-                <label class="checkbox inline">
-                <input type="radio" name="rating" id="inlineCheckbox1" value="1"> 1
-                </label>
-                <label class="checkbox inline">
-                <input type="radio" name="rating" id="inlineCheckbox2" value="2"> 2
-                </label>
-                <label class="checkbox inline">
-                <input type="radio" name="rating" id="inlineCheckbox3" value="3"> 3
-                </label>
-                <label class="checkbox inline">
-                <input type="radio" name="rating" id="inlineCheckbox1" value="4"> 4
-                </label>
-                <label class="checkbox inline">
-                <input type="radio" name="rating" id="inlineCheckbox2" value="5"> 5
-                </label>
-                <input id="do-rating" class="btn" type="submit" value="Rate"/>
+            <form id="rating-form" class="col-6" action="/rate/{{ key }}" method="post">
+		<div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="rating" id="inlineCheckbox1" value="1">
+                    <label class="form-check-label">1</label>
+		</div>
+		<div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="rating" id="inlineCheckbox2" value="2">
+                    <label class="form-check-label">2</label>
+		</div>
+		<div class="form-check form-check-inline">
+		    <input class="form-check-input" type="radio" name="rating" id="inlineCheckbox3" value="3">
+		    <label class="form-check-label">3</label>
+		</div>
+		<div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="rating" id="inlineCheckbox1" value="4">
+                    <label class="form-check-label">4</label>
+		</div>
+		<div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="rating" id="inlineCheckbox2" value="5">
+                    <label class="form-check-label">5</label>
+		</div>
+                <input id="do-rating" class="btn btn-primary" type="submit" value="Rate"/>
             </form>
             {% else %}
-            <div class="span6">
+            <div class="col-6">
                 <p>This spam has an overall rating of {{ rating }}.</p>
             </div>
             {% endif %}
             
-            <div class="span6">
+            <div class="col-6">
                 <p>This spam has been viewed {{ views }} times.</p>
             </div>
         </div>
