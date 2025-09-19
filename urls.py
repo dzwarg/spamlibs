@@ -14,28 +14,28 @@ endpoints:
 * ``/supply``: Input a new spam email into the application.
 * ``/_ah/mail/<email>``: An AppEngine URL to receive spam email directly.
 """
-from django.conf.urls.defaults import *
+from django.urls import re_path
 from spam import views
 
-urlpatterns = patterns('',
+urlpatterns = [
     # The main page/index view
-    (r'^$', views.index),
+    re_path(r'^$', views.index),
     
     # A list of all spams
-    (r'^list/(?P<page>\d*)$', views.list),
+    re_path(r'^list/(?P<page>\d*)$', views.list),
     
     # View a specific spam
-    (r'^view/(?P<key>.*)$', views.view),
+    re_path(r'^view/(?P<key>.*)$', views.view),
     
     # Generate forms for all the fields in a spam
-    (r'^seed/(?P<key>.*)$', views.seed),
+    re_path(r'^seed/(?P<key>.*)$', views.seed),
     
     # Input an email from an HTML form
-    (r'^supply$', views.supply),
+    re_path(r'^supply$', views.supply),
     
     # Rate a spamlibbed email
-    (r'^rate/(?P<key>.*)$', views.rate),
+    re_path(r'^rate/(?P<key>.*)$', views.rate),
     
     # Input an email from an email submission
-    (r'^_ah/mail/garbage@spamlibs.appspotmail.com$', views.incoming),
-)
+    re_path(r'^_ah/mail/garbage@spamlibs.appspotmail.com$', views.incoming),
+]

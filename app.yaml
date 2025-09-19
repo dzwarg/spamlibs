@@ -1,6 +1,6 @@
-runtime: python27
-api_version: 1
-threadsafe: yes
+runtime: python39
+
+entrypoint: gunicorn -b :$PORT main:app
 
 handlers:
 - url: /favicon\.ico
@@ -8,14 +8,8 @@ handlers:
   upload: favicon\.ico
 
 - url: /.*
-  script: main.app
+  script: auto
 
-libraries:
-- name: django
-  version: "latest"
-  
-- name: numpy
-  version: "latest"
-  
+
 inbound_services:
 - mail

@@ -11,19 +11,23 @@ For more information about django views, see the django documentation:
 Each of the views here is mapped to one URL.
 """
 
-from django.shortcuts import render_to_response, redirect
-from django.http import Http404, HttpResponse, HttpResponseForbidden
-from django.template import RequestContext
+from __future__ import absolute_import
+from django.shortcuts import render, redirect
 from nltk.tokenize import word_tokenize
 from nltk.tag import pos_tag
 from nltk.data import load
 from random import random
-from models import Email, Lib, UserSetting
+from .models import Email, Lib, UserSetting
 from datetime import datetime
 import logging, math, sys
 from google.appengine.api.mail import InboundEmailMessage
 from google.appengine.ext.db import BadKeyError
 from google.appengine.api import users
+from six.moves import range
+
+import nltk
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
 
 # load the tagset and help for individual terms
 tagdict = load('help/tagsets/upenn_tagset.pickle')
@@ -128,14 +132,14 @@ def index(request):
     qry = Email.all().order('-rating')
     popular_spams = qry.fetch(limit)
     
-    ctx = RequestContext(request, {
+    ctx = {
         'recent_spams':recent_spams,
         'viewed_spams':viewed_spams,
         'popular_spams':popular_spams,
         'more':count==limit+1
-    })    
+    }    
     
-    return render_to_response('index.html', context_instance=ctx)
+    return render(request, 'index.html', ctx)
 
 
 def _pager(current, total, per_page):
@@ -194,15 +198,15 @@ def list(request, page):
     nspams = qry.count(offset=(page-1)*pagesize, limit=maxfwd)
     spams = qry.fetch(pagesize, offset=(page-1)*pagesize)
     
-    ctx = RequestContext(request, {
+    ctx = {
         'spams':spams,
         'count':maxfwd,
         'pager':_pager(page, (page-1)*pagesize + nspams, 10),
         'order':order,
         'page':page
-    })
+    }
     
-    return render_to_response('list.html', context_instance=ctx)
+    return render(request, 'list.html', ctx)
     
     
 def view(request, key):
@@ -216,7 +220,7 @@ def view(request, key):
     """
     try:
         email = Email.get(key)
-    except BadKeyError, ex:
+    except BadKeyError as ex:
         raise Http404
     
     email.views += 1
@@ -224,17 +228,14 @@ def view(request, key):
     
     tokens = word_tokenize(email.body)
     tags = pos_tag(tokens)
-    body = _colorize_output(email.body, tags)
-    
-    ctx = RequestContext(request, {
-        'title':email.title, 
-        'body':body,
-        'views':email.views,
-        'rating':email.rating
-    })
-    
-    return render_to_response('output_raw.html', context_instance=ctx)
-
+        ctx = {
+            'title':email.title, 
+            'body':body,
+            'views':email.views,
+            'rating':email.rating
+        }
+        
+        return render(request, 'output_raw.html', ctx)
 
 def supply(request):
     """
@@ -256,8 +257,8 @@ def supply(request):
     #    return HttpResponseForbidden('<h1>Authorization Required</h1>')
         
     if request.method == 'GET':
-        ctx = RequestContext(request, {})
-        return render_to_response('input_form.html', context_instance=ctx)
+        ctx = {}
+        return render(request, 'input_form.html', ctx)
         
     title = request.POST['title']
     input = request.POST['input'].lstrip('\t\n\r ')
@@ -308,20 +309,19 @@ def seed(request, key):
     email.put()
         
     if request.method == 'GET':
-        libs = Lib.all().filter('email =', email).order('position')
-        ctx = RequestContext(request, {
+        ctx = {
             'title':email.title, 
             'key':key,
             'libs':libs
-        })
+        }
         
-        return render_to_response('seed_fields.html', context_instance=ctx)
+        return render(request, 'seed_fields.html', ctx)
         
     ls = []
     for l in request.POST.items():
         ls.append( (l[0], l[1], Lib.get(l[0]),) )
         
-    ls.sort(cmp=lambda x,y: cmp(x[2].position, y[2].position))
+    ls.sort(key=lambda x: x[2].position)
         
     newbody = ''
     bodyidx = 0
@@ -332,16 +332,14 @@ def seed(request, key):
         newbody += l[1]
         bodyidx += len(l[2].original)
     
-    newbody += email.body[bodyidx:]
-        
-    ctx = RequestContext(request, {
+    ctx = {
         'key':key, 
         'title':email.title,
         'body':newbody,
         'is_processed':True,
         'views':email.views
-    })
-    return render_to_response('output_raw.html', context_instance=ctx)
+    }
+    return render(request, 'output_raw.html', ctx)
     
 def incoming(request):
     """
@@ -358,14 +356,11 @@ def incoming(request):
         
         usetting = UserSetting.gql('WHERE email = :1', msg.sender)
         if usetting.count() == 0:
-            logging.warn('Received email from an unrecognized sender: ' + msg.sender)
-            
-            return render_to_response('msg_receipt.email', mimetype='text/plain')
-            
+                        return render(request, 'msg_receipt.email', content_type='text/plain')            
         if not usetting.get().is_contrib:
             logging.warn('Received email from an unauthorized contributor: ' + msg.sender)
             
-            return render_to_response('msg_receipt.email', mimetype='text/plain')
+            return render(request, 'msg_receipt.email', content_type='text/plain')
             
         content = ''
         for content_type, body in msg.bodies('text/plain'):
@@ -397,7 +392,7 @@ def incoming(request):
             
             _process_new(email)
             
-    except Exception, ex:
+    except Exception as ex:
         logging.error('Error processing new email. %s' % ex)
     
-    return render_to_response('msg_receipt.email', mimetype='text/plain')
+    return render(request, 'msg_receipt.email', content_type='text/plain')
