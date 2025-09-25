@@ -28,3 +28,33 @@ appcfg.py update .
 *   The application uses the NLTK library for natural language processing.
 *   The application uses the Google App Engine datastore for data persistence.
 *   The frontend is built with Django templates and Bootstrap.
+
+### Commit Messages
+
+Commit messages should follow the Conventional Commits specification. Each commit message should be structured as follows:
+
+```
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+**Example:**
+
+```
+feat(spec-001): Implement 'hello world' and restructure project
+
+This commit marks the beginning of spec-driven development for this project.
+
+It introduces the initial implementation of the "Display a 'hello world' page to users" feature, as defined in spec-001.
+
+Changes include:
+- A new Django project in the backend directory.
+- A hello_world app with a view, template, and URL configuration.
+- A test to verify the feature.
+- Feature specification and implementation plan in the specs directory.
+- The .specify directory and its contents for the new workflow.
+- The original project files have been moved into the python27 directory to preserve them for future migration.
+```

@@ -26,3 +26,6 @@ pip-log.txt
 /_templates/
 *.DS_Store
 /backend/db.*
+gcloud.log
+
+backend/static/
