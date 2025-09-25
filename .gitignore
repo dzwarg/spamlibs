@@ -25,3 +25,4 @@ pip-log.txt
 /_static/
 /_templates/
 *.DS_Store
+/backend/db.*
