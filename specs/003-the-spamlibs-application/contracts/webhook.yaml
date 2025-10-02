@@ -1,0 +1,29 @@
+openapi: 3.0.0
+info:
+  title: Webhook for Incoming Email
+  version: 1.0.0
+
+paths:
+  /incoming:
+    post:
+      summary: Receives incoming email data via webhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true # Allows arbitrary properties
+            examples:
+              incomingPayload:
+                summary: Example incoming unknown payload
+                value:
+                  some_key: some_value
+                  email_content: This is an example of an unknown email payload.
+                  sender: sender@example.com
+                  subject: Unknown subject
+      responses:
+        '200':
+          description: Webhook request successfully received and acknowledged.
+        '400':
+          description: Invalid webhook request (e.g., malformed JSON, but still logged).
