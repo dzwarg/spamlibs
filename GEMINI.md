@@ -20,6 +20,16 @@ python backend/manage.py runserver
 scripts/deploy.sh
 ```
 
+## Testing
+
+To run all tests, use the following script:
+
+```bash
+scripts/run_tests.sh
+```
+
+This will execute both the Django unit tests and the Playwright E2E tests and provide a summary of the results.
+
 ## Development Conventions
 
 *   The project follows the standard Django project structure.

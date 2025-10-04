@@ -1,0 +1,284 @@
+{
+    "attachments": [],
+    "headers": {
+        "Received": "by mail-pl1-x634.google.com with SMTP id d9443c01a7336-271d1305ad7so20762855ad.2 for <garbage@spamlibs.zwarg.com>; Thu, 02 Oct 2025 15:46:26 -0700 (PDT)",
+        "DKIM-Signature": "v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20230601; t=1759445185; x=1760049985; darn=spamlibs.zwarg.com; h=to:subject:message-id:date:from:mime-version:from:to:cc:subject :date:message-id:reply-to; bh=MdedBSFZRKsPssUazEjjj/4J1Fq1WQMwiPvHq5+9MmU=; b=HpM3Kc4hx2A8sutQ3diUuEoyY7PGnRqshyYw6iDkNeIcLcdQlTuE5gy8qfE9GNzbax GKUT7NvJxu6+UvwoRpYLq0dd71S6S802Mg4RSReiVJ8YuOYjGu3PIwPwJ0+g6mP8itOY YcFQwmwbYb8fp7X70c7RSNbYM5igd9byiTGJx1Zlz+XIUbdt6dmHDVuDn4QxpjSmBCJk +WmxNFsfLDhoY/ZNBPA8sbpvJ+IyeM9lt7ZR37uTSwW8cKjMtlDwTqz8MSO+DrA+LFUK RZD4XkiRkOY6TGClN47aaNbvU3hFrJb7VKfQbNFlUN0YuFQ21rM9ua5k799e3h+7N0Wj OYRA==",
+        "X-Google-DKIM-Signature": "v=1; a=rsa-sha256; c=relaxed/relaxed; d=1e100.net; s=20230601; t=1759445185; x=1760049985; h=to:subject:message-id:date:from:mime-version:x-gm-message-state :from:to:cc:subject:date:message-id:reply-to; bh=MdedBSFZRKsPssUazEjjj/4J1Fq1WQMwiPvHq5+9MmU=; b=xSxRy54FUa5BjSa3Rokj+/w+ij+AlyHfRYdqLmLuwaS8O2wFjCBPTI606DFmRoOqdT bj87HapFQmT0iwLAILtf0NX9V3PBXW9dODPto6ONe0wFz4PvMHlUdITU+tTOTTKJ3/Xy k+t3huMOAIMqzpY8wuhDG2gRxLy7HhCM0oO4YHgM1I80LIYoRjjaBW7cPIp4Rsm+ateC AXWZKO4/La3ri2WSEETxx8HIVvDRH3CDWLvrNCkfvijN4VTRdp+hxuQhNSO+JV9uVqWE ISDWc78ucfXb9wuoDbKUxEgf3uTEu9jki/fKqmvZMyLuZVE/u6sinwnRmQtPBGg0GqjH 0gOg==",
+        "X-Gm-Message-State": "AOJu0Yzjla6zq1EKGxh592akzKrkg/N91OxKRxRiPPyccnEefGcKtwob UUOXJER8H2QY8vJgk3mGCntJ1i5x63nw7WnAS9RvT/KcpNZaf9cVjkNO7zaYszSRpvlD+c/LuHe EK4Ta+wbJ62aIszPCQS94qo8LwfT4sgwM51U=",
+        "X-Gm-Gg": "ASbGnctGDUhw4KGxrcxt8coDBpSLzXH+DXmhKixkBkfo8gjhkijNalu8v7+uhXSvXdX NCbSgRtvbpu/8x8pgpUh9JkFmLWeIgNTrpAW+zm+/OVTjSYtPIG/vscButLdfGhIxDYpfcGaPcy cRODZj66aQSOEyd/iJiBP9fqMG7hzhF755PPBibZphwKrloSPFZNbjCSZMu3ajy+WmzRedwJsPB HTHvd9sz3GbRXGQciQi94BNm3Nryw==",
+        "X-Google-Smtp-Source": "AGHT+IE1U3GpBKNNNbGvaYjjXoKNuxhjX8butIs29PTDtdCpczEgVm006kFvCoS0EFEqSPloy4IRkbTgQztiXyTJwYM=",
+        "X-Received": "by 2002:a17:903:1a86:b0:268:b8a:5a26 with SMTP id d9443c01a7336-28e9a6b19e2mr11234615ad.54.1759445184922; Thu, 02 Oct 2025 15:46:24 -0700 (PDT)",
+        "MIME-Version": "1.0",
+        "From": "David Zwarg <david.zwarg@gmail.com>",
+        "Date": "Thu, 2 Oct 2025 18:46:12 -0400",
+        "X-Gm-Features": "AS18NWC6xZxqS6jIn1iyvD0BDCXh5yEzyUcvW_VmncJBO5TmWCtGzU49gmq9Jns",
+        "Message-ID": "<CANyN0UzA_mgaQFKz9oRLafY8y+=doD_UEa=hoZNW2oswDE=jSQ@mail.gmail.com>",
+        "Subject": "blarg blarg",
+        "To": "garbage@spamlibs.zwarg.com",
+        "Content-Type": "multipart/alternative; boundary=\"0000000000003fc82d064034c1e0\""
+    },
+    "headerLines": [
+        {
+            "key": "arc-seal",
+            "line": "ARC-Seal: i=1; a=rsa-sha256; t=1759445190; cv=none; d=forwardemail.net;\r\n s=default;\r\n b=MWw6CH4ehhHnqXKifT9OdIQrVCdMZiAyRppAVYu9e/6nSkBx3TzzOEN5Mf1pHIa1JWBZbUb4N\r\n aePygTL0xfvC1ucc8eRro/M0Y/kTyXTTvn4y5iBmkJCW+AGZMli7aAWisNZkNZFC9fJOTRXKaT/\r\n wzwSXc2HTjhX28YQpNOcGJY="
+        },
+        {
+            "key": "arc-message-signature",
+            "line": "ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;\r\n d=forwardemail.net; h=Content-Type: To: Subject: Message-ID: Date: From:\r\n MIME-Version; q=dns/txt; s=default; t=1759445190;\r\n bh=MdedBSFZRKsPssUazEjjj/4J1Fq1WQMwiPvHq5+9MmU=;\r\n b=DzvXwJoDi6iQHl58xjxPUR8+HzDo8jXYlZhsI9w1/EJdIGPrhFAiPa9Fe1Wj7es1U8SYxgjpM\r\n K0yoI0mrKVQRNKWNzcjAPZUSSHtadfOv6wAgJixzQuxkgYcHvKtRuo4e4wc7MtIf2IN4JD2nZbh\r\n G3HnHkatOp1/0yGeKO9LPqE="
+        },
+        {
+            "key": "arc-authentication-results",
+            "line": "ARC-Authentication-Results: i=1; mx2.forwardemail.net;\r\n dkim=pass header.i=@gmail.com header.s=20230601 header.a=rsa-sha256 header.b=HpM3Kc4h;\r\n spf=pass (mx2.forwardemail.net: domain of david.zwarg@gmail.com designates 2607:f8b0:4864:20::634 as permitted sender) smtp.mailfrom=david.zwarg@gmail.com\r\n smtp.helo=mail-pl1-x634.google.com;\r\n dmarc=pass (p=NONE sp=QUARANTINE arc=none) header.from=gmail.com header.d=gmail.com;\r\n bimi=skipped (too lax DMARC policy)"
+        },
+        {
+            "key": "dkim-signature",
+            "line": "DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=forwardemail.net;\r\n h=Content-Type: To: Subject: Message-ID: Date: From: MIME-Version;\r\n q=dns/txt; s=default; t=1759445190;\r\n bh=MdedBSFZRKsPssUazEjjj/4J1Fq1WQMwiPvHq5+9MmU=;\r\n b=T18nmJatqyD9adlf6g7vTBJ6FLdhvEaRxGqzCpLb/irn4rectQOMcJelEk+0nb1ZscUKB/PZd\r\n mwwzrzs5SmrsT1IRrzRebUf8OTI25Yx++sc7gQ54eQSkjFc84nlhD50iXnsqZnTo79KlQVmBTjW\r\n pOdP2wQSFMM9KN0z55F30VA="
+        },
+        {
+            "key": "received",
+            "line": "Received: from mail-pl1-x634.google.com ([2607:f8b0:4864:20::634]\r\n mail-pl1-x634.google.com) by mx2.forwardemail.net (Forward Email) with\r\n ESMTPS for <garbage@spamlibs.zwarg.com> (version=TLSv1.3\r\n cipher=TLS_AES_256_GCM_SHA384); Thu, 02 Oct 2025 22:46:26 +0000"
+        },
+        {
+            "key": "x-original-to",
+            "line": "X-Original-To: garbage@spamlibs.zwarg.com"
+        },
+        {
+            "key": "x-forward-email-sender",
+            "line": "X-Forward-Email-Sender: rfc822; david.zwarg@gmail.com,\r\n mail-pl1-x634.google.com, 2607:f8b0:4864:20::634"
+        },
+        {
+            "key": "x-forward-email-version",
+            "line": "X-Forward-Email-Version: 1.2.14"
+        },
+        {
+            "key": "x-forward-email-website",
+            "line": "X-Forward-Email-Website: https://forwardemail.net"
+        },
+        {
+            "key": "x-complaints-to",
+            "line": "X-Complaints-To: abuse@forwardemail.net"
+        },
+        {
+            "key": "x-report-abuse",
+            "line": "X-Report-Abuse: abuse@forwardemail.net"
+        },
+        {
+            "key": "x-report-abuse-to",
+            "line": "X-Report-Abuse-To: abuse@forwardemail.net"
+        },
+        {
+            "key": "received",
+            "line": "Received: by mail-pl1-x634.google.com with SMTP id d9443c01a7336-271d1305ad7so20762855ad.2\r\n        for <garbage@spamlibs.zwarg.com>; Thu, 02 Oct 2025 15:46:26 -0700 (PDT)"
+        },
+        {
+            "key": "dkim-signature",
+            "line": "DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n        d=gmail.com; s=20230601; t=1759445185; x=1760049985; darn=spamlibs.zwarg.com;\r\n        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject\r\n         :date:message-id:reply-to;\r\n        bh=MdedBSFZRKsPssUazEjjj/4J1Fq1WQMwiPvHq5+9MmU=;\r\n        b=HpM3Kc4hx2A8sutQ3diUuEoyY7PGnRqshyYw6iDkNeIcLcdQlTuE5gy8qfE9GNzbax\r\n         GKUT7NvJxu6+UvwoRpYLq0dd71S6S802Mg4RSReiVJ8YuOYjGu3PIwPwJ0+g6mP8itOY\r\n         YcFQwmwbYb8fp7X70c7RSNbYM5igd9byiTGJx1Zlz+XIUbdt6dmHDVuDn4QxpjSmBCJk\r\n         +WmxNFsfLDhoY/ZNBPA8sbpvJ+IyeM9lt7ZR37uTSwW8cKjMtlDwTqz8MSO+DrA+LFUK\r\n         RZD4XkiRkOY6TGClN47aaNbvU3hFrJb7VKfQbNFlUN0YuFQ21rM9ua5k799e3h+7N0Wj\r\n         OYRA=="
+        },
+        {
+            "key": "x-google-dkim-signature",
+            "line": "X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n        d=1e100.net; s=20230601; t=1759445185; x=1760049985;\r\n        h=to:subject:message-id:date:from:mime-version:x-gm-message-state\r\n         :from:to:cc:subject:date:message-id:reply-to;\r\n        bh=MdedBSFZRKsPssUazEjjj/4J1Fq1WQMwiPvHq5+9MmU=;\r\n        b=xSxRy54FUa5BjSa3Rokj+/w+ij+AlyHfRYdqLmLuwaS8O2wFjCBPTI606DFmRoOqdT\r\n         bj87HapFQmT0iwLAILtf0NX9V3PBXW9dODPto6ONe0wFz4PvMHlUdITU+tTOTTKJ3/Xy\r\n         k+t3huMOAIMqzpY8wuhDG2gRxLy7HhCM0oO4YHgM1I80LIYoRjjaBW7cPIp4Rsm+ateC\r\n         AXWZKO4/La3ri2WSEETxx8HIVvDRH3CDWLvrNCkfvijN4VTRdp+hxuQhNSO+JV9uVqWE\r\n         ISDWc78ucfXb9wuoDbKUxEgf3uTEu9jki/fKqmvZMyLuZVE/u6sinwnRmQtPBGg0GqjH\r\n         0gOg=="
+        },
+        {
+            "key": "x-gm-message-state",
+            "line": "X-Gm-Message-State: AOJu0Yzjla6zq1EKGxh592akzKrkg/N91OxKRxRiPPyccnEefGcKtwob\r\n\tUUOXJER8H2QY8vJgk3mGCntJ1i5x63nw7WnAS9RvT/KcpNZaf9cVjkNO7zaYszSRpvlD+c/LuHe\r\n\tEK4Ta+wbJ62aIszPCQS94qo8LwfT4sgwM51U="
+        },
+        {
+            "key": "x-gm-gg",
+            "line": "X-Gm-Gg: ASbGnctGDUhw4KGxrcxt8coDBpSLzXH+DXmhKixkBkfo8gjhkijNalu8v7+uhXSvXdX\r\n\tNCbSgRtvbpu/8x8pgpUh9JkFmLWeIgNTrpAW+zm+/OVTjSYtPIG/vscButLdfGhIxDYpfcGaPcy\r\n\tcRODZj66aQSOEyd/iJiBP9fqMG7hzhF755PPBibZphwKrloSPFZNbjCSZMu3ajy+WmzRedwJsPB\r\n\tHTHvd9sz3GbRXGQciQi94BNm3Nryw=="
+        },
+        {
+            "key": "x-google-smtp-source",
+            "line": "X-Google-Smtp-Source: AGHT+IE1U3GpBKNNNbGvaYjjXoKNuxhjX8butIs29PTDtdCpczEgVm006kFvCoS0EFEqSPloy4IRkbTgQztiXyTJwYM="
+        },
+        {
+            "key": "x-received",
+            "line": "X-Received: by 2002:a17:903:1a86:b0:268:b8a:5a26 with SMTP id\r\n d9443c01a7336-28e9a6b19e2mr11234615ad.54.1759445184922; Thu, 02 Oct 2025\r\n 15:46:24 -0700 (PDT)"
+        },
+        {
+            "key": "mime-version",
+            "line": "MIME-Version: 1.0"
+        },
+        {
+            "key": "from",
+            "line": "From: David Zwarg <david.zwarg@gmail.com>"
+        },
+        {
+            "key": "date",
+            "line": "Date: Thu, 2 Oct 2025 18:46:12 -0400"
+        },
+        {
+            "key": "x-gm-features",
+            "line": "X-Gm-Features: AS18NWC6xZxqS6jIn1iyvD0BDCXh5yEzyUcvW_VmncJBO5TmWCtGzU49gmq9Jns"
+        },
+        {
+            "key": "message-id",
+            "line": "Message-ID: <CANyN0UzA_mgaQFKz9oRLafY8y+=doD_UEa=hoZNW2oswDE=jSQ@mail.gmail.com>"
+        },
+        {
+            "key": "subject",
+            "line": "Subject: blarg blarg"
+        },
+        {
+            "key": "to",
+            "line": "To: garbage@spamlibs.zwarg.com"
+        },
+        {
+            "key": "content-type",
+            "line": "Content-Type: multipart/alternative; boundary=\"0000000000003fc82d064034c1e0\""
+        }
+    ],
+    "html": "<div dir=\"ltr\">Howdy howdy blargy blarhetk naonne anotehu na .</div>\n",
+    "text": "Howdy howdy blargy blarhetk naonne anotehu na .\n",
+    "textAsHtml": "",
+    "subject": "blarg blarg",
+    "date": "2025-10-02T22:46:12.000Z",
+    "to": {
+        "value": [
+            {
+                "address": "garbage@spamlibs.zwarg.com",
+                "name": ""
+            }
+        ],
+        "html": "<span class=\"mp_address_group\"><a href=\"mailto:garbage@spamlibs.zwarg.com\" class=\"mp_address_email\">garbage@spamlibs.zwarg.com</a></span>",
+        "text": "garbage@spamlibs.zwarg.com"
+    },
+    "from": {
+        "value": [
+            {
+                "address": "david.zwarg@gmail.com",
+                "name": "David Zwarg"
+            }
+        ],
+        "html": "<span class=\"mp_address_group\"><span class=\"mp_address_name\">David Zwarg</span> &lt;<a href=\"mailto:david.zwarg@gmail.com\" class=\"mp_address_email\">david.zwarg@gmail.com</a>&gt;</span>",
+        "text": "\"David Zwarg\" <david.zwarg@gmail.com>"
+    },
+    "messageId": "<CANyN0UzA_mgaQFKz9oRLafY8y+=doD_UEa=hoZNW2oswDE=jSQ@mail.gmail.com>",
+    "raw": "ARC-Seal: i=1; a=rsa-sha256; t=1759445190; cv=none; d=forwardemail.net;\r\n s=default;\r\n b=MWw6CH4ehhHnqXKifT9OdIQrVCdMZiAyRppAVYu9e/6nSkBx3TzzOEN5Mf1pHIa1JWBZbUb4N\r\n aePygTL0xfvC1ucc8eRro/M0Y/kTyXTTvn4y5iBmkJCW+AGZMli7aAWisNZkNZFC9fJOTRXKaT/\r\n wzwSXc2HTjhX28YQpNOcGJY=\r\nARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;\r\n d=forwardemail.net; h=Content-Type: To: Subject: Message-ID: Date: From:\r\n MIME-Version; q=dns/txt; s=default; t=1759445190;\r\n bh=MdedBSFZRKsPssUazEjjj/4J1Fq1WQMwiPvHq5+9MmU=;\r\n b=DzvXwJoDi6iQHl58xjxPUR8+HzDo8jXYlZhsI9w1/EJdIGPrhFAiPa9Fe1Wj7es1U8SYxgjpM\r\n K0yoI0mrKVQRNKWNzcjAPZUSSHtadfOv6wAgJixzQuxkgYcHvKtRuo4e4wc7MtIf2IN4JD2nZbh\r\n G3HnHkatOp1/0yGeKO9LPqE=\r\nARC-Authentication-Results: i=1; mx2.forwardemail.net;\r\n dkim=pass header.i=@gmail.com header.s=20230601 header.a=rsa-sha256 header.b=HpM3Kc4h;\r\n spf=pass (mx2.forwardemail.net: domain of david.zwarg@gmail.com designates 2607:f8b0:4864:20::634 as permitted sender) smtp.mailfrom=david.zwarg@gmail.com\r\n smtp.helo=mail-pl1-x634.google.com;\r\n dmarc=pass (p=NONE sp=QUARANTINE arc=none) header.from=gmail.com header.d=gmail.com;\r\n bimi=skipped (too lax DMARC policy)\r\nDKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=forwardemail.net;\r\n h=Content-Type: To: Subject: Message-ID: Date: From: MIME-Version;\r\n q=dns/txt; s=default; t=1759445190;\r\n bh=MdedBSFZRKsPssUazEjjj/4J1Fq1WQMwiPvHq5+9MmU=;\r\n b=T18nmJatqyD9adlf6g7vTBJ6FLdhvEaRxGqzCpLb/irn4rectQOMcJelEk+0nb1ZscUKB/PZd\r\n mwwzrzs5SmrsT1IRrzRebUf8OTI25Yx++sc7gQ54eQSkjFc84nlhD50iXnsqZnTo79KlQVmBTjW\r\n pOdP2wQSFMM9KN0z55F30VA=\r\nReceived: from mail-pl1-x634.google.com ([2607:f8b0:4864:20::634]\r\n mail-pl1-x634.google.com) by mx2.forwardemail.net (Forward Email) with\r\n ESMTPS for <garbage@spamlibs.zwarg.com> (version=TLSv1.3\r\n cipher=TLS_AES_256_GCM_SHA384); Thu, 02 Oct 2025 22:46:26 +0000\r\nX-Original-To: garbage@spamlibs.zwarg.com\r\nX-Forward-Email-Sender: rfc822; david.zwarg@gmail.com,\r\n mail-pl1-x634.google.com, 2607:f8b0:4864:20::634\r\nX-Forward-Email-Version: 1.2.14\r\nX-Forward-Email-Website: https://forwardemail.net\r\nX-Complaints-To: abuse@forwardemail.net\r\nX-Report-Abuse: abuse@forwardemail.net\r\nX-Report-Abuse-To: abuse@forwardemail.net\r\nReceived: by mail-pl1-x634.google.com with SMTP id d9443c01a7336-271d1305ad7so20762855ad.2\r\n        for <garbage@spamlibs.zwarg.com>; Thu, 02 Oct 2025 15:46:26 -0700 (PDT)\r\nDKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n        d=gmail.com; s=20230601; t=1759445185; x=1760049985; darn=spamlibs.zwarg.com;\r\n        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject\r\n         :date:message-id:reply-to;\r\n        bh=MdedBSFZRKsPssUazEjjj/4J1Fq1WQMwiPvHq5+9MmU=;\r\n        b=HpM3Kc4hx2A8sutQ3diUuEoyY7PGnRqshyYw6iDkNeIcLcdQlTuE5gy8qfE9GNzbax\r\n         GKUT7NvJxu6+UvwoRpYLq0dd71S6S802Mg4RSReiVJ8YuOYjGu3PIwPwJ0+g6mP8itOY\r\n         YcFQwmwbYb8fp7X70c7RSNbYM5igd9byiTGJx1Zlz+XIUbdt6dmHDVuDn4QxpjSmBCJk\r\n         +WmxNFsfLDhoY/ZNBPA8sbpvJ+IyeM9lt7ZR37uTSwW8cKjMtlDwTqz8MSO+DrA+LFUK\r\n         RZD4XkiRkOY6TGClN47aaNbvU3hFrJb7VKfQbNFlUN0YuFQ21rM9ua5k799e3h+7N0Wj\r\n         OYRA==\r\nX-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n        d=1e100.net; s=20230601; t=1759445185; x=1760049985;\r\n        h=to:subject:message-id:date:from:mime-version:x-gm-message-state\r\n         :from:to:cc:subject:date:message-id:reply-to;\r\n        bh=MdedBSFZRKsPssUazEjjj/4J1Fq1WQMwiPvHq5+9MmU=;\r\n        b=xSxRy54FUa5BjSa3Rokj+/w+ij+AlyHfRYdqLmLuwaS8O2wFjCBPTI606DFmRoOqdT\r\n         bj87HapFQmT0iwLAILtf0NX9V3PBXW9dODPto6ONe0wFz4PvMHlUdITU+tTOTTKJ3/Xy\r\n         k+t3huMOAIMqzpY8wuhDG2gRxLy7HhCM0oO4YHgM1I80LIYoRjjaBW7cPIp4Rsm+ateC\r\n         AXWZKO4/La3ri2WSEETxx8HIVvDRH3CDWLvrNCkfvijN4VTRdp+hxuQhNSO+JV9uVqWE\r\n         ISDWc78ucfXb9wuoDbKUxEgf3uTEu9jki/fKqmvZMyLuZVE/u6sinwnRmQtPBGg0GqjH\r\n         0gOg==\r\nX-Gm-Message-State: AOJu0Yzjla6zq1EKGxh592akzKrkg/N91OxKRxRiPPyccnEefGcKtwob\r\n\tUUOXJER8H2QY8vJgk3mGCntJ1i5x63nw7WnAS9RvT/KcpNZaf9cVjkNO7zaYszSRpvlD+c/LuHe\r\n\tEK4Ta+wbJ62aIszPCQS94qo8LwfT4sgwM51U=\r\nX-Gm-Gg: ASbGnctGDUhw4KGxrcxt8coDBpSLzXH+DXmhKixkBkfo8gjhkijNalu8v7+uhXSvXdX\r\n\tNCbSgRtvbpu/8x8pgpUh9JkFmLWeIgNTrpAW+zm+/OVTjSYtPIG/vscButLdfGhIxDYpfcGaPcy\r\n\tcRODZj66aQSOEyd/iJiBP9fqMG7hzhF755PPBibZphwKrloSPFZNbjCSZMu3ajy+WmzRedwJsPB\r\n\tHTHvd9sz3GbRXGQciQi94BNm3Nryw==\r\nX-Google-Smtp-Source: AGHT+IE1U3GpBKNNNbGvaYjjXoKNuxhjX8butIs29PTDtdCpczEgVm006kFvCoS0EFEqSPloy4IRkbTgQztiXyTJwYM=\r\nX-Received: by 2002:a17:903:1a86:b0:268:b8a:5a26 with SMTP id\r\n d9443c01a7336-28e9a6b19e2mr11234615ad.54.1759445184922; Thu, 02 Oct 2025\r\n 15:46:24 -0700 (PDT)\r\nMIME-Version: 1.0\r\nFrom: David Zwarg <david.zwarg@gmail.com>\r\nDate: Thu, 2 Oct 2025 18:46:12 -0400\r\nX-Gm-Features: AS18NWC6xZxqS6jIn1iyvD0BDCXh5yEzyUcvW_VmncJBO5TmWCtGzU49gmq9Jns\r\nMessage-ID: <CANyN0UzA_mgaQFKz9oRLafY8y+=doD_UEa=hoZNW2oswDE=jSQ@mail.gmail.com>\r\nSubject: blarg blarg\r\nTo: garbage@spamlibs.zwarg.com\r\nContent-Type: multipart/alternative; boundary=\"0000000000003fc82d064034c1e0\"\r\n\r\n--0000000000003fc82d064034c1e0\r\nContent-Type: text/plain; charset=\"UTF-8\"\r\n\r\nHowdy howdy blargy blarhetk naonne anotehu na .\r\n\r\n--0000000000003fc82d064034c1e0\r\nContent-Type: text/html; charset=\"UTF-8\"\r\n\r\n<div dir=\"ltr\">Howdy howdy blargy blarhetk naonne anotehu na .</div>\r\n\r\n--0000000000003fc82d064034c1e0--\r\n",
+    "dkim": {
+        "headerFrom": [
+            "david.zwarg@gmail.com"
+        ],
+        "envelopeFrom": "david.zwarg@gmail.com",
+        "results": [
+            {
+                "id": "bb5ba9d03dc74330ac6fd28fea075db94b7de27f02467d1ea83592a3454433c1",
+                "signingDomain": "gmail.com",
+                "selector": "20230601",
+                "signature": "HpM3Kc4hx2A8sutQ3diUuEoyY7PGnRqshyYw6iDkNeIcLcdQlTuE5gy8qfE9GNzbaxGKUT7NvJxu6+UvwoRpYLq0dd71S6S802Mg4RSReiVJ8YuOYjGu3PIwPwJ0+g6mP8itOYYcFQwmwbYb8fp7X70c7RSNbYM5igd9byiTGJx1Zlz+XIUbdt6dmHDVuDn4QxpjSmBCJk+WmxNFsfLDhoY/ZNBPA8sbpvJ+IyeM9lt7ZR37uTSwW8cKjMtlDwTqz8MSO+DrA+LFUKRZD4XkiRkOY6TGClN47aaNbvU3hFrJb7VKfQbNFlUN0YuFQ21rM9ua5k799e3h+7N0WjOYRA==",
+                "algo": "rsa-sha256",
+                "format": "relaxed/relaxed",
+                "bodyHash": "MdedBSFZRKsPssUazEjjj/4J1Fq1WQMwiPvHq5+9MmU=",
+                "bodyHashExpecting": "MdedBSFZRKsPssUazEjjj/4J1Fq1WQMwiPvHq5+9MmU=",
+                "signingHeaders": {
+                    "keys": "To: Subject: Message-ID: Date: From: MIME-Version",
+                    "headers": [
+                        "To: garbage@spamlibs.zwarg.com",
+                        "Subject: blarg blarg",
+                        "Message-ID: <CANyN0UzA_mgaQFKz9oRLafY8y+=doD_UEa=hoZNW2oswDE=jSQ@mail.gmail.com>",
+                        "Date: Thu, 2 Oct 2025 18:46:12 -0400",
+                        "From: David Zwarg <david.zwarg@gmail.com>",
+                        "MIME-Version: 1.0"
+                    ],
+                    "canonicalizedHeader": "dG86Z2FyYmFnZUBzcGFtbGlicy56d2FyZy5jb20NCnN1YmplY3Q6YmxhcmcgYmxhcmcNCm1lc3NhZ2UtaWQ6PENBTnlOMFV6QV9tZ2FRRkt6OW9STGFmWTh5Kz1kb0RfVUVhPWhvWk5XMm9zd0RFPWpTUUBtYWlsLmdtYWlsLmNvbT4NCmRhdGU6VGh1LCAyIE9jdCAyMDI1IDE4OjQ2OjEyIC0wNDAwDQpmcm9tOkRhdmlkIFp3YXJnIDxkYXZpZC56d2FyZ0BnbWFpbC5jb20+DQptaW1lLXZlcnNpb246MS4wDQpka2ltLXNpZ25hdHVyZTp2PTE7IGE9cnNhLXNoYTI1NjsgYz1yZWxheGVkL3JlbGF4ZWQ7IGQ9Z21haWwuY29tOyBzPTIwMjMwNjAxOyB0PTE3NTk0NDUxODU7IHg9MTc2MDA0OTk4NTsgZGFybj1zcGFtbGlicy56d2FyZy5jb207IGg9dG86c3ViamVjdDptZXNzYWdlLWlkOmRhdGU6ZnJvbTptaW1lLXZlcnNpb246ZnJvbTp0bzpjYzpzdWJqZWN0IDpkYXRlOm1lc3NhZ2UtaWQ6cmVwbHktdG87IGJoPU1kZWRCU0ZaUktzUHNzVWF6RWpqai80SjFGcTFXUU13aVB2SHE1KzlNbVU9OyBiPQ=="
+                },
+                "status": {
+                    "result": "pass",
+                    "header": {
+                        "i": "@gmail.com",
+                        "s": "20230601",
+                        "a": "rsa-sha256",
+                        "b": "HpM3Kc4h"
+                    },
+                    "aligned": "gmail.com"
+                },
+                "sourceBodyLength": 310,
+                "canonBodyLength": 310,
+                "canonBodyLengthTotal": 310,
+                "canonBodyLengthLimited": false,
+                "mimeStructureStart": 0,
+                "publicKey": "-----BEGIN RSA PUBLIC KEY-----\nMIIBCgKCAQEAntvSKT1hkqhKe0xcaZ0x+QbouDsJuBfby/S82jxsoC/SodmfmVs2\nD1KAH3mi1AqdMdU12h2VfETeOJkgGYq5ljd996AJ7ud2SyOLQmlhaNHH7Lx+Mdab\n8/zDN1SdxPARDgcM7AsRECHwQ15R20FaKUABGu4NTbR2fDKnYwiq5jQyBkLWP+Lg\nGOgfUF4T4HZb2PY2bQtEP6QeqOtcW4rrsH24L7XhD+HSZb1hsitrE0VPbhJzxDwI\n4JF815XMnSVjZgYUXP8CxI1Y0FONlqtQYgsorZ9apoW1KPQe8brSSlRsi9sXB/tu\n56LmG7tEDNmrZ5XUwQYUUADBOu7t1niwXwIDAQAB\n-----END RSA PUBLIC KEY-----\n",
+                "modulusLength": 2048,
+                "rr": "v=DKIM1;k=rsa;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAntvSKT1hkqhKe0xcaZ0x+QbouDsJuBfby/S82jxsoC/SodmfmVs2D1KAH3mi1AqdMdU12h2VfETeOJkgGYq5ljd996AJ7ud2SyOLQmlhaNHH7Lx+Mdab8/zDN1SdxPARDgcM7AsRECHwQ15R20FaKUABGu4NTbR2fDKnYwiq5jQyBkLWP+LgGOgfUF4T4HZb2PY2bQtEP6QeqOtcW4rrsH24L7XhD+HSZb1hsitrE0VPbhJzxDwI4JF815XMnSVjZgYUXP8CxI1Y0FONlqtQYgsorZ9apoW1KPQe8brSSlRsi9sXB/tu56LmG7tEDNmrZ5XUwQYUUADBOu7t1niwXwIDAQAB",
+                "info": "dkim=pass header.i=@gmail.com header.s=20230601 header.a=rsa-sha256 header.b=HpM3Kc4h"
+            }
+        ]
+    },
+    "spf": {
+        "domain": "gmail.com",
+        "client-ip": "2607:f8b0:4864:20::634",
+        "helo": "mail-pl1-x634.google.com",
+        "envelope-from": "david.zwarg@gmail.com",
+        "rr": "v=spf1 redirect=_spf.google.com",
+        "status": {
+            "result": "pass",
+            "comment": "mx2.forwardemail.net: domain of david.zwarg@gmail.com designates 2607:f8b0:4864:20::634 as permitted sender",
+            "smtp": {
+                "mailfrom": "david.zwarg@gmail.com",
+                "helo": "mail-pl1-x634.google.com"
+            }
+        },
+        "header": "Received-SPF: pass (mx2.forwardemail.net: domain of david.zwarg@gmail.com designates 2607:f8b0:4864:20::634 as permitted sender)\r\n client-ip=2607:f8b0:4864:20::634;",
+        "info": "spf=pass (mx2.forwardemail.net: domain of david.zwarg@gmail.com designates 2607:f8b0:4864:20::634 as permitted sender) smtp.mailfrom=david.zwarg@gmail.com smtp.helo=mail-pl1-x634.google.com",
+        "lookups": {
+            "limit": 10,
+            "count": 3,
+            "void": 0,
+            "subqueries": {}
+        }
+    },
+    "arc": {
+        "status": {
+            "result": "none"
+        },
+        "i": 0,
+        "authResults": "mx2.forwardemail.net;\r\n dkim=pass header.i=@gmail.com header.s=20230601 header.a=rsa-sha256 header.b=HpM3Kc4h;\r\n spf=pass (mx2.forwardemail.net: domain of david.zwarg@gmail.com designates 2607:f8b0:4864:20::634 as permitted sender) smtp.mailfrom=david.zwarg@gmail.com\r\n smtp.helo=mail-pl1-x634.google.com;\r\n dmarc=pass (p=NONE sp=QUARANTINE arc=none) header.from=gmail.com header.d=gmail.com;\r\n bimi=skipped (too lax DMARC policy)"
+    },
+    "dmarc": {
+        "status": {
+            "result": "pass",
+            "comment": "p=NONE sp=QUARANTINE arc=none",
+            "header": {
+                "from": "gmail.com",
+                "d": "gmail.com"
+            }
+        },
+        "domain": "gmail.com",
+        "policy": "none",
+        "p": "none",
+        "sp": "quarantine",
+        "rr": "v=DMARC1; p=none; sp=quarantine; rua=mailto:mailauth-reports@google.com",
+        "alignment": {
+            "spf": {
+                "result": "gmail.com",
+                "strict": false
+            },
+            "dkim": {
+                "result": "gmail.com",
+                "strict": false
+            }
+        },
+        "info": "dmarc=pass (p=NONE sp=QUARANTINE arc=none) header.from=gmail.com header.d=gmail.com"
+    },
+    "bimi": {
+        "status": {
+            "header": {},
+            "result": "skipped",
+            "comment": "too lax DMARC policy"
+        },
+        "info": "bimi=skipped (too lax DMARC policy)"
+    },
+    "recipients": [
+        "garbage@spamlibs.zwarg.com"
+    ],
+    "session": {
+        "recipient": "garbage@spamlibs.zwarg.com",
+        "remoteAddress": "2607:f8b0:4864:20::634",
+        "remotePort": 49228,
+        "clientHostname": "mail-pl1-x634.google.com",
+        "hostNameAppearsAs": "mail-pl1-x634.google.com",
+        "sender": "david.zwarg@gmail.com",
+        "mta": "mx2.forwardemail.net",
+        "arrivalDate": "2025-10-02T22:46:26.000Z",
+        "arrivalTime": 1759445186000
+    }
+}

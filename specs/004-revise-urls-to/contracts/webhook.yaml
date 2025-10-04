@@ -1,0 +1,106 @@
+openapi: 3.0.0
+info:
+  title: Spamlibs Webhook API
+  version: 1.0.0
+paths:
+  /:
+    get:
+      summary: Hello World
+      responses:
+        '200':
+          description: A "hello world" message.
+  /webhook/:
+    post:
+      summary: Receive Spam Email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IncomingMessage'
+      responses:
+        '200':
+          description: Message received.
+components:
+  schemas:
+    IncomingMessage:
+      type: object
+      properties:
+        attachments:
+          type: array
+          items:
+            type: object
+        headers:
+          type: object
+        headerLines:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              line:
+                type: string
+        html:
+          type: string
+        text:
+          type: string
+        textAsHtml:
+          type: string
+        subject:
+          type: string
+        date:
+          type: string
+          format: date-time
+        to:
+          type: object
+          properties:
+            value:
+              type: array
+              items:
+                type: object
+                properties:
+                  address:
+                    type: string
+                  name:
+                    type: string
+            html:
+              type: string
+            text:
+              type: string
+        from:
+          type: object
+          properties:
+            value:
+              type: array
+              items:
+                type: object
+                properties:
+                  address:
+                    type: string
+                  name:
+                    type: string
+            html:
+              type: string
+            text:
+              type: string
+        messageId:
+          type: string
+        raw:
+          type: string
+        dkim:
+          type: object
+        spf:
+          type: object
+        arc:
+          type: object
+        dmarc:
+          type: object
+        bimi:
+          type: object
+        recipients:
+          type: array
+          items:
+            type: string
+        session:
+          type: object
