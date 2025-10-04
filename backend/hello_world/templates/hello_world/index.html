@@ -5,5 +5,11 @@
 </head>
 <body>
     <h1>hello world</h1>
+
+    <form action="/webhook/incoming" method="post">
+        <label for="message">Enter your message:</label><br>
+        <textarea id="message" name="message" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Submit to Webhook">
+    </form>
 </body>
 </html>

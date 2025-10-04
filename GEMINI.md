@@ -11,16 +11,14 @@ This is a Google App Engine project and can be run using the App Engine SDK.
 **To run the application locally:**
 
 ```bash
-dev_appserver.py .
+python backend/manage.py runserver
 ```
 
 **To deploy the application:**
 
 ```bash
-appcfg.py update .
+scripts/deploy.sh
 ```
-
-*TODO: The above commands are inferred from the project type. Verify that they are correct and update this section if necessary.*
 
 ## Development Conventions
 

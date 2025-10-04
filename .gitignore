@@ -27,5 +27,6 @@ pip-log.txt
 *.DS_Store
 /backend/db.*
 gcloud.log
+gunicorn.log
 
 backend/static/
