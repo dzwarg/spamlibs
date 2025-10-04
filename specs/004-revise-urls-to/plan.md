@@ -91,10 +91,8 @@ Completed in `data-model.md`, `contracts/webhook.yaml`, and `quickstart.md`.
 *This section describes what the /tasks command will do - DO NOT execute during /plan*
 
 **Task Generation Strategy**:
-- Create tasks to update the URL configuration to route '/' to the "hello world" view.
 - Create tasks to define the `IncomingMessage` model based on `data-model.md`.
 - Create tasks to implement validation for the `IncomingMessage` model.
-- Create tasks to update the frontend to submit the form to the root URL (`/`) using `fetch`.
 - Create a task to write an E2E test to verify the form submission.
 
 **Ordering Strategy**:
@@ -105,7 +103,6 @@ Completed in `data-model.md`, `contracts/webhook.yaml`, and `quickstart.md`.
 ## Frontend Changes
 - The form in `backend/hello_world/templates/hello_world/index.html` already uses the `fetch` API to `POST` data to the backend.
 - The `Content-Type` header is correctly set to `application/json`.
-- The plan is to update the `fetch` call to POST to the root URL (`/`) instead of `/webhook/incoming`.
 
 ## Testing
 - An E2E test will be created to verify the form submission.
@@ -113,7 +110,7 @@ Completed in `data-model.md`, `contracts/webhook.yaml`, and `quickstart.md`.
     1. Navigate to the root URL (`/`).
     2. Fill in the message form.
     3. Click the submit button.
-    4. Intercept the `fetch` request and assert that the request is a `POST` request to the correct URL (`/`) with the correct `Content-Type` header (`application/json`) and the correct payload.
+    4. Intercept the `fetch` request and assert that the request is a `POST` request to the correct URL (`/webhook/incoming`) with the correct `Content-Type` header (`application/json`) and the correct payload.
     5. The existing E2E test `e2e_tests/test_hello_world.py` will be updated or a new one will be created.
 
 ## Complexity Tracking
