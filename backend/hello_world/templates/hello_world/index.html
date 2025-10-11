@@ -6,10 +6,51 @@
 <body>
     <h1>hello world</h1>
 
-    <form action="/webhook/incoming" method="post">
+    <form id="messageForm">
         <label for="message">Enter your message:</label><br>
         <textarea id="message" name="message" rows="4" cols="50"></textarea><br>
-        <input type="submit" value="Submit to Webhook">
+        <input type="submit" value="Submit to Webhook"> <span id="submissionStatus" style="display:none;">✅</span>
     </form>
+
+    <script>
+        document.getElementById('messageForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Hide the status indicator at the start of a new submission
+            document.getElementById('submissionStatus').style.display = 'none';
+
+            const message = document.getElementById('message').value;
+            const payload = {
+                "subject": "Message from the form",
+                "from": {
+                    "value": [
+                        {
+                            "address": "form@example.com",
+                            "name": "Form User"
+                        }
+                    ]
+                },
+                "text": message
+            };
+
+            fetch('/webhook/incoming', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('submissionStatus').style.display = 'inline';
+                }
+                return response.json();
+            })
+            .then(data => console.log(data))
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
 </body>
 </html>
