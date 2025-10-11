@@ -9,8 +9,8 @@ async def run():
 
         # Intercept network requests
         async def handle_route(route):
-            if route.request.url == "http://127.0.0.1:8000/" and route.request.method == "POST":
-                print("Intercepted POST request to /")
+            if route.request.url == "http://127.0.0.1:8000/webhook/incoming" and route.request.method == "POST":
+                print("Intercepted POST request to /webhook/incoming")
                 
                 # Assertions
                 assert route.request.method == "POST"
@@ -47,6 +47,9 @@ async def run():
 
         # Wait for the response (or a timeout)
         await page.wait_for_timeout(1000) # Wait for 1 second to ensure the request is caught
+
+        # Assert that the success indicator is visible
+        await expect(page.locator("#submissionStatus")).to_be_visible()
 
         await browser.close()
 
