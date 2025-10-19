@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col col-12">
+		<div class="px-4 py-5 my-5 text-center">
+                    <h1 class="display-5 fw-bold">Spamlibs</h1>
+                    <div class="col-lg-6 mx-auto">
+			<p class="lead mb-4">Spamlibs is a mashup of spam email and the Madlibs&trade; word game.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <h2>Recent Spams</h2>
+
+                <ol>
+                    {% for spam in recent_spams %}
+                    <li><a href="{% url 'seed' spam.pk %}">{{ spam.title }}</a></li>
+                    {% endfor %}
+                </ol>
+                        
+                {% if more %}
+                <div class="row">
+                    <div class="col-2">
+                        <a class="btn" href="{% url 'list' 1 %}?order=-date">More...</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="col-4">
+                <h2>Most Viewed Spams</h2>
+
+                <ol>
+                    {% for spam in viewed_spams %}
+                    <li><a href="{% url 'seed' spam.pk %}">{{ spam.title }}</a></li>
+                    {% endfor %}
+                </ol>
+        
+                {% if more %}
+                <div class="row">
+                    <div class="col-2">
+                        <a class="btn" href="{% url 'list' 1 %}?order=-views">More...</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="col-4">
+                <h2>Most Popular Spams</h2>
+
+                <ol>
+                    {% for spam in popular_spams %}
+                    <li><a href="{% url 'seed' spam.pk %}">{{ spam.title }}</a></li>
+                    {% endfor %}
+                </ol>
+        
+                {% if more %}
+                <div class="row">
+                    <div class="col-2">
+                        <a class="btn" href="{% url 'list' 1 %}?order=-rating">More...</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+        
+        <div class="row">
+            <div class="col-12">
+                Madlibs&trade; is Copyright &copy; 2010 Pengiun Group(USA), and
+                is in no way related to Spamlibs.
+            </div>
+        </div>
+    </div>
+{% endblock %}

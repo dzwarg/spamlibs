@@ -21,12 +21,12 @@ def webhook_receiver(request):
             logger.info(f"Parsed JSON Payload: {payload}")
         except json.JSONDecodeError as e:
             logger.error(f"Malformed JSON payload: {e}")
-            return HttpResponse('Oops.', status=500)
+            return HttpResponse('Malformed JSON', status=400)
 
         required_fields = ['subject', 'from', 'text']
         missing_fields = [field for field in required_fields if field not in payload]
         if missing_fields:
-            return HttpResponse('Oops.', status=500)
+            return HttpResponse(f'Missing required fields: {", ".join(missing_fields)}', status=400)
 
         date_str = payload.get('date')
         date_obj = None
