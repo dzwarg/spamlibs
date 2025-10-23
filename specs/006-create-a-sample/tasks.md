@@ -40,30 +40,30 @@
 - The script will be created in a new `scripts/` directory at the root of the project.
 
 ## Phase 3.1: Setup
-- [ ] T001 Create a new directory `scripts/` at the project root.
-- [ ] T002 Create a new file `scripts/extract_data.py`.
-- [ ] T003 Create a new file `scripts/requirements.txt` and add `google-cloud-datastore` to it.
-- [ ] T004 Create a new directory `tests/scripts/`.
-- [ ] T005 Create a new file `tests/scripts/test_extract_data.py`.
+- [X] T001 Create a new directory `scripts/` at the project root.
+- [X] T002 Create a new file `scripts/extract_data.py`.
+- [X] T003 Create a new file `scripts/requirements.txt` and add `google-cloud-datastore` to it.
+- [X] T004 Create a new directory `tests/scripts/`.
+- [X] T005 Create a new file `tests/scripts/test_extract_data.py`.
 
 ## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
-- [ ] T006 [P] In `tests/scripts/test_extract_data.py`, write a failing unit test for authenticating with Google Cloud Datastore.
-- [ ] T007 [P] In `tests/scripts/test_extract_data.py`, write a failing unit test for fetching data from Datastore.
-- [ ] T008 [P] In `tests/scripts/test_extract_data.py`, write a failing unit test for writing data to a JSON file.
+- [X] T006 [P] In `tests/scripts/test_extract_data.py`, write a failing unit test for authenticating with Google Cloud Datastore.
+- [X] T007 [P] In `tests/scripts/test_extract_data.py`, write a failing unit test for fetching data from Datastore.
+- [X] T008 [P] In `tests/scripts/test_extract_data.py`, write a failing unit test for writing data to a JSON file.
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
-- [ ] T009 In `scripts/extract_data.py`, implement the `authenticate` function to connect to Google Cloud Datastore using Application Default Credentials.
-- [ ] T010 In `scripts/extract_data.py`, implement the `fetch_data` function to retrieve all `Email` and `Lib` entities.
-- [ ] T011 In `scripts/extract_data.py`, implement the `write_to_json` function to save the extracted data to `spamlibs_export.json`.
+- [X] T009 In `scripts/extract_data.py`, implement the `authenticate` function to connect to Google Cloud Datastore using Application Default Credentials.
+- [X] T010 In `scripts/extract_data.py`, implement the `fetch_data` function to retrieve all `Email` and `Lib` entities.
+- [X] T011 In `scripts/extract_data.py`, implement the `write_to_json` function to save the extracted data to `spamlibs_export.json`.
 
 ## Phase 3.4: Integration
-- [ ] T012 In `scripts/extract_data.py`, implement the `main` function to orchestrate the script: authenticate, fetch data, and write to a file.
+- [X] T012 In `scripts/extract_data.py`, implement the `main` function to orchestrate the script: authenticate, fetch data, and write to a file.
 
 ## Phase 3.5: Polish
-- [ ] T013 [P] Add logging to the script to provide feedback on the extraction process.
-- [ ] T014 [P] Add docstrings to all functions in the script.
-- [ ] T015 [P] Add error handling for potential issues like authentication failure or file write errors.
+- [X] T013 [P] Add logging to the script to provide feedback on the extraction process.
+- [X] T014 [P] Add docstrings to all functions in the script.
+- [X] T015 [P] Add error handling for potential issues like authentication failure or file write errors.
 
 ## Dependencies
 - Setup (T001-T005) before everything.

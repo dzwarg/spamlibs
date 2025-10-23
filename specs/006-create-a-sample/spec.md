@@ -2,7 +2,7 @@
 
 **Feature Branch**: `006-create-a-sample`  
 **Created**: 2025-10-22
-**Status**: Draft  
+**Status**: Complete  
 **Input**: User description: "Create a sample script that can extract existing data from the deployed Spamlibs application in the cloud."
 
 ## Clarifications
