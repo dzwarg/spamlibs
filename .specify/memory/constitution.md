@@ -37,7 +37,7 @@ The project SHOULD favor conventions provided by its frameworks (Django, Google 
 
 ## Additional Constraints
 
-The application MUST be compatible with the Google App Engine environment. All dependencies MUST be compatible with the App Engine Python 2.7 runtime (as per the current setup).
+The application MUST be compatible with the gcloud App Engine environment. All dependencies MUST be compatible with the App Engine Python 3 runtime.
 
 ## Development Workflow
 
@@ -47,4 +47,4 @@ All changes MUST be submitted via pull requests and reviewed by at least one oth
 
 This constitution is the primary source of truth for project principles. Amendments require a pull request, discussion, and approval from the project maintainers.
 
-**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): Set the initial ratification date. | **Last Amended**: 2025-09-24
+**Version**: 2.0.0 | **Ratified**: 2025-10-22 | **Last Amended**: 2025-10-22
