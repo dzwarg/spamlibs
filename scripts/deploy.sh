@@ -10,6 +10,6 @@ echo "Deploying to Google App Engine..."
 gcloud app deploy backend/app.yaml --project=spamlibs
 
 echo "Running Playwright tests..."
-python e2e_tests/test_hello_world.py
+python e2e_tests/test_spam.py
 
 echo "Playwright test report generated. Open playwright-report/index.html in your browser to view it."

@@ -2,7 +2,7 @@
 
 **Feature Branch**: `002-deploy-the-application`  
 **Created**: 2025-09-24
-**Status**: Draft  
+**Status**: Complete  
 **Input**: User description: "Deploy the application to a production environment."
 
 ## User Scenarios & Testing *(mandatory)*

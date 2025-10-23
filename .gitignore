@@ -30,3 +30,7 @@ gcloud.log
 gunicorn.log
 
 backend/static/
+google_appengine/
+python27_env/
+python27/nltk/
+python27/nltk_data/
